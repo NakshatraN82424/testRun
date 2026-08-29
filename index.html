@@ -3985,6 +3985,14 @@ Post
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
+const SUPABASE_URL = "https://pnpofmooygpzjdvifavd.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_oHFMWWdt7D2rdkiiv4Xj9w_r7vtQ79-";
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+  
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
     schools.forEach(school => {
 
