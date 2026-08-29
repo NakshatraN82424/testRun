@@ -1,0 +1,6302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Red Cross Club</title>
+
+  <style>
+
+    *{
+      margin:0;
+
+      padding:0;
+
+      box-sizing:border-box;
+
+      scroll-behavior:smooth;
+
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f5f5f5;
+
+      overflow-x:hidden;
+    }
+
+    /* =========================
+        NAVBAR
+    ==========================*/
+
+    .navbar{
+      width:100%;
+
+      position:fixed;
+
+      top:0;
+
+      left:0;
+
+      z-index:1000;
+
+      padding:18px 50px;
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      background:linear-gradient(
+        360deg,
+        #8b0000,
+        #cc0000,
+        #ff1a1a
+      );
+
+      box-shadow:0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    .logo-section{
+      display:flex;
+
+      align-items:center;
+
+      gap:14px;
+
+      margin-left:35px;
+    }
+
+    .logo{
+      width:52px;
+
+      height:52px;
+
+      border-radius:50%;
+
+      background:white;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      color:#cc0000;
+
+      font-size:60px;
+
+      font-weight:bold;
+    }
+
+    .site-title{
+      color:white;
+
+      font-size:28px;
+
+      font-weight:bold;
+
+      letter-spacing:1px;
+    }
+
+    .nav-links{
+      display:flex;
+
+      gap:22px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+
+      color:white;
+
+      font-size:17px;
+
+      font-weight:500;
+
+      padding:8px 14px;
+
+      border-radius:8px;
+
+      transition:0.3s ease;
+    }
+
+    .nav-links a:hover{
+      background:rgba(255,255,255,0.15);
+
+      cursor:pointer;
+    }
+
+    /* PAGES */
+    .page{
+     display:none;
+    }
+
+    .page.active{
+      display:block;
+    }
+
+    /* =========================
+        HERO / SEARCH SECTION
+    ==========================*/
+
+    .hero{
+      height:100vh;
+
+      background-image:url('https://www.redcross.org/content/dam/redcross/International-Services/Earthquakes/about-international-nepal.jpg.transform/1288/q82/feature/image.jpeg');
+      background-size:cover;
+      background-position:center;
+
+      position:relative;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      text-align:center;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.65);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+      color:white;
+      width:80%;
+      max-width:800px;
+    }
+
+    .hero-content h1{
+      font-size:4.5rem;
+      margin-bottom:20px;
+    }
+
+    .hero-content p{
+      font-size:1.2rem;
+      margin-bottom:20px;
+      line-height:1.6;
+    }
+
+    /* SEARCH BAR */
+
+    .search-container{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .search-input{
+      width:420px;
+      max-width:90%;
+
+      padding:16px 18px;
+
+      border:none;
+      border-radius:10px;
+
+      font-size:16px;
+      outline:none;
+    }
+
+    .search-btn{
+      padding:16px 28px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .search-btn:hover{
+      background:#ff1a1a;
+      transform:translateY(-3px);
+      box-shadow:0 10px 20px rgba(255,0,0,0.3);
+      cursor:pointer;
+    }
+
+    /* =========================
+        ADD SECTION
+    ==========================*/
+
+    .add-section{
+      min-height:75vh;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      padding:80px 60px;
+      gap:40px;
+
+      background:#f5f5f5;
+    }
+
+    /* Carousel */
+
+    .carousel{
+      flex:1;
+      height:420px;
+
+      border-radius:20px;
+      overflow:hidden;
+
+      position:relative;
+
+      box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .carousel img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+
+      position:absolute;
+      opacity:0;
+
+      animation:slideShow 12s infinite;
+    }
+
+    .carousel img:nth-child(1){
+      animation-delay:0s;
+    }
+
+    .carousel img:nth-child(2){
+      animation-delay:4s;
+    }
+
+    .carousel img:nth-child(3){
+      animation-delay:8s;
+    }
+
+    @keyframes slideShow{
+
+      0%{
+        opacity:0;
+      }
+
+      8%{
+        opacity:1;
+      }
+
+      30%{
+        opacity:1;
+      }
+
+      38%{
+        opacity:0;
+      }
+
+      100%{
+        opacity:0;
+      }
+    }
+
+    /* Add Content */
+
+    .add-content{
+      flex:1;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:right;
+      align-items:flex-start;
+    }
+
+    .add-content h2{
+      font-size:3rem;
+      margin-bottom:18px;
+      color:black;
+    }
+
+    .add-content p{
+      font-size:1.1rem;
+      line-height:1.7;
+      margin-bottom:28px;
+      color:#333;
+      max-width:500px;
+    }
+
+    .add-btn{
+      padding:16px 28px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .add-btn:hover{
+      background:#ff1a1a;
+      transform:translateY(-3px);
+      box-shadow:0 10px 20px rgba(255,0,0,0.3);
+      cursor:pointer;
+    }
+
+    /* =========================
+        ABOUT + FEEDBACK
+    ==========================*/
+
+    .about-feedback{
+      min-height:70vh;
+
+      display:flex;
+      flex-wrap:wrap;
+
+      background:#f7f7f7;
+    }
+
+    /* ABOUT */
+
+    .about{
+      flex:1;
+      min-width:300px;
+
+      padding:80px 60px;
+
+      background:#f5f5f5;
+    }
+
+    .about h2{
+      font-size:3rem;
+      margin-bottom:22px;
+      color:#cc0000;
+    }
+
+    .about p{
+      font-size:1.1rem;
+      line-height:1.9;
+      color:#333;
+    }
+
+    /* FEEDBACK */
+
+    .feedback{
+      flex:1;
+      min-width:300px;
+
+      padding:80px 60px;
+
+      background:#cc0000;
+      color:white;
+    }
+
+    .feedback h2{
+      font-size:3rem;
+      margin-bottom:25px;
+    }
+
+    .feedback-form{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea{
+      padding:15px;
+
+      border:none;
+      border-radius:10px;
+
+      font-size:16px;
+      outline:none;
+    }
+
+    .feedback-form textarea{
+      resize:none;
+      height:150px;
+    }
+
+    .feedback-form button{
+      padding:15px;
+
+      border:none;
+      border-radius:10px;
+
+      background:black;
+      color:white;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .feedback-form button:hover{
+      background:#222;
+      transform:translateY(-2px);
+      cursor:pointer;
+    }
+
+    /* =========================
+        FOOTER
+    ==========================*/
+
+    footer{
+      background:black;
+      color:white;
+
+      text-align:center;
+
+      padding:22px;
+      font-size:15px;
+    }
+
+    /* =========================
+        RESPONSIVE
+    ==========================*/
+
+    @media(max-width:900px){
+
+      .hero-content h1{
+        font-size:3rem;
+      }
+
+      .add-section{
+        flex-direction:column;
+      }
+
+      .carousel{
+        width:100%;
+      }
+
+      .about-feedback{
+        flex-direction:column;
+      }
+
+      .navbar{
+        padding:18px 25px;
+      }
+
+      .nav-links{
+        gap:10px;
+      }
+    }
+
+    /* =========================
+        SEARCH AREA
+    ==========================*/
+
+      .nav-search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .nav-search input{
+
+      width:280px;
+
+      padding:12px 16px;
+
+      border:none;
+      border-radius:8px;
+
+      outline:none;
+
+      font-size:15px;
+    }
+
+    .nav-search button{
+
+      padding:12px 20px;
+
+      border:none;
+      border-radius:8px;
+
+      background:black;
+      color:white;
+
+      font-size:15px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .nav-search button:hover{
+      background:#222;
+      transform:translateY(-2px);
+      cursor:pointer;
+    }
+
+    /* =========================
+        PAGE HEADER
+    ==========================*/
+
+    .page-header{
+      text-align:center;
+      padding:70px 20px 40px;
+    }
+
+    .page-header h1{
+      font-size:3rem;
+      color:#cc0000;
+      margin-bottom:15px;
+    }
+
+    .page-header p{
+      color:#444;
+      font-size:1.1rem;
+    }
+
+    /* =========================
+        SCHOOL CARDS
+    ==========================*/
+
+    .cards-container{
+
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:30px;
+
+      padding:20px 40px 80px;
+    }
+
+    .school-card,
+    .add-card{
+
+      width:250px;
+
+      background:white;
+
+      border-radius:18px;
+
+      padding:30px 20px;
+
+      text-align:center;
+
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+
+      transition:0.3s ease;
+    }
+
+     .school-address{
+
+    color:#666;
+
+    font-size:0.95rem;
+
+    margin-top:-10px;
+    margin-bottom:18px;
+
+    line-height:1.5;
+  }
+
+    /* =========================
+        SCHOOL ICON
+    ==========================*/
+
+    .school-icon{
+
+      width:90px;
+      height:90px;
+
+      margin:auto;
+      margin-bottom:20px;
+
+      border-radius:50%;
+
+      background:#cc0000;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:white;
+      font-size:42px;
+      font-weight:bold;
+    }
+
+    .school-card h2{
+      font-size:1.4rem;
+      margin-bottom:20px;
+      color:#222;
+    }
+
+    /* =========================
+        VIEW BUTTON
+    ==========================*/
+
+    .view-btn{
+
+      padding:12px 22px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-size:15px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .view-btn:hover{
+      background:#ff1a1a;
+      transform:translateY(-2px);
+      cursor:pointer;
+    }
+
+    /* =========================
+        ADD CARD
+    ==========================*/
+
+    .add-icon{
+
+      width:120px;
+      height:120px;
+
+      margin:auto;
+      margin-bottom:20px;
+      margin-top: 20px;
+
+      border-radius:18px;
+
+      background:black;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:white;
+      font-size:100px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .add-icon:hover{
+      background:#222;
+      transform:scale(1.05);
+      cursor:pointer;
+    }
+
+    .add-card p{
+      font-size:1.3rem;
+      color:#333;
+    }
+
+    /* =========================
+        POPUP
+    ==========================*/
+
+    .popup-overlay{
+
+      position:fixed;
+      inset:0;
+
+      background:rgba(0,0,0,0.6);
+
+      display:none;
+
+      justify-content:center;
+      align-items:center;
+
+      z-index:2000;
+    }
+
+    .popup-form{
+
+      width:90%;
+      max-width:500px;
+
+      background:white;
+
+      border-radius:20px;
+
+      padding:40px 35px;
+
+      position:relative;
+
+      animation:popupFade 0.3s ease;
+    }
+
+    @keyframes popupFade{
+
+      from{
+        opacity:0;
+        transform:scale(0.9);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    /* =========================
+        CODE POPUP
+    ==========================*/
+
+    .codepopup-overlay{
+
+      position:fixed;
+      inset:0;
+
+      background:rgba(0,0,0,0.6);
+
+      display:none;
+
+      justify-content:center;
+      align-items:center;
+
+      z-index:2000;
+    }
+
+    .codepopup-form{
+
+      width:90%;
+      max-width:500px;
+
+      background:white;
+
+      border-radius:20px;
+
+      padding:40px 35px;
+
+      position:relative;
+
+      animation:popupFade 0.3s ease;
+    }
+
+    @keyframes codepopupFade{
+
+      from{
+        opacity:0;
+        transform:scale(0.9);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    /* =========================
+        CLOSE BUTTON
+    ==========================*/
+
+    .close-btn{
+
+      position:absolute;
+      top:18px;
+      right:22px;
+
+      color:#cc0000;
+
+      font-size:28px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .close-btn:hover{
+      color:#ff1a1a;
+      transform:scale(1.1);
+      cursor:pointer;
+    }
+
+    /* =========================
+        FORM
+    ==========================*/
+
+    .popup-form h2{
+
+      text-align:center;
+
+      color:#cc0000;
+
+      margin-bottom:30px;
+
+      font-size:2rem;
+    }
+
+    .school-form{
+
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .school-form input{
+
+      padding:15px;
+
+      border:2px solid #ddd;
+      border-radius:10px;
+
+      font-size:16px;
+
+      outline:none;
+
+      transition:0.3s ease;
+    }
+
+    .school-form input:focus{
+
+      border-color:#cc0000;
+
+      box-shadow:0 0 10px rgba(255,0,0,0.2);
+    }
+
+    .school-form button{
+
+      padding:15px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .school-form button:hover{
+
+      background:#ff1a1a;
+
+      transform:translateY(-2px);
+
+      box-shadow:0 10px 20px rgba(255,0,0,0.25);
+      cursor:pointer;
+    }
+
+    /* =========================
+        RESPONSIVE
+    ==========================*/
+
+    @media(max-width:768px){
+
+      .navbar{
+        flex-direction:column;
+        gap:18px;
+      }
+
+      .nav-search{
+        width:100%;
+        justify-content:center;
+      }
+
+      .nav-search input{
+        width:180px;
+      }
+
+      .page-header h1{
+        font-size:2.3rem;
+      }
+    }
+
+       /* =========================
+        MAIN CONTENT
+    ==========================*/
+
+    .container{
+
+      width:85%;
+      max-width:1200px;
+
+      margin:auto;
+
+      padding:60px 0;
+    }
+
+    /* TOP SECTION */
+
+    .top-section{
+
+      display:flex;
+      justify-content:space-between;
+      gap:50px;
+
+      background:white;
+
+      border-radius:20px;
+
+      padding:45px;
+
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* SCHOOL INFO */
+
+    .school-info{
+      flex:1;
+    }
+
+    .school-info h1{
+      font-size:3rem;
+      color:#cc0000;
+      margin-bottom:18px;
+    }
+
+    .school-info p{
+      font-size:1.05rem;
+      color:#444;
+      margin-bottom:12px;
+      line-height:1.7;
+    }
+
+    /* OFFICERS */
+
+    .officers{
+      flex:1;
+    }
+
+    .officer-line{
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:16px 0;
+
+      border-bottom:1px solid #ddd;
+    }
+
+    .officer-left{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .role{
+      color:#cc0000;
+      font-weight:bold;
+    }
+
+    .info-btn,
+    .add-info-btn{
+
+      padding:10px 18px;
+
+      border:none;
+      border-radius:8px;
+
+      cursor:pointer;
+
+      font-weight:bold;
+
+      transition:0.3s ease;
+    }
+
+    .info-btn{
+
+      background:#cc0000;
+      color:white;
+    }
+
+    .info-btn:hover{
+      background:#ff1a1a;
+      cursor:pointer;
+    }
+
+    .add-info-btn{
+
+      background:black;
+      color:white;
+    }
+
+    .add-info-btn:hover{
+      background:#222;
+      cursor:pointer;
+    }
+
+    /* =========================
+        MEMBERS
+    ==========================*/
+
+    .members-section{
+
+      margin-top:40px;
+
+      background:white;
+
+      border-radius:20px;
+
+      padding:40px;
+
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .members-header{
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:18px;
+    }
+
+    .members-header h2{
+      color:#cc0000;
+      font-size:2rem;
+    }
+
+    .add-member-btn{
+
+      padding:12px 22px;
+
+      border:none;
+      border-radius:8px;
+
+      background:#cc0000;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .add-member-btn:hover{
+      background:#ff1a1a;
+      cursor:pointer;
+    }
+
+    .member-line{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.member-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.member-pfp{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+    /* =========================
+        POPUPS
+    ==========================*/
+
+    .popup-overlay{
+
+      position:fixed;
+      inset:0;
+
+      background:rgba(0,0,0,0.6);
+
+      display:none;
+
+      justify-content:center;
+      align-items:center;
+
+      z-index:3000;
+    }
+
+    .popup{
+
+      width:90%;
+      max-width:450px;
+
+      background:white;
+
+      border-radius:18px;
+
+      padding:35px;
+
+      position:relative;
+      animation: popupFade 0.3s ease;
+    }
+
+    .close-btn{
+
+      position:absolute;
+      top:14px;
+      right:18px;
+
+      font-size:28px;
+      color:#cc0000;
+
+      cursor:pointer;
+    }
+
+    .popup h2{
+
+      text-align:center;
+
+      margin-bottom:25px;
+
+      color:#cc0000;
+    }
+
+    .popup form{
+
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    @keyframes popupFade{
+
+      from{
+        opacity:0;
+        transform:scale(0.9);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    .popup input{
+
+      padding:14px;
+
+      border:2px solid #ddd;
+      border-radius:10px;
+
+      font-size:15px;
+
+      outline:none;
+    }
+
+    .popup input:focus{
+      border-color:#cc0000;
+    }
+
+    .popup button{
+
+      padding:14px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+    }
+
+    .popup button:hover{
+      background:#ff1a1a;
+      cursor:pointer;
+    }
+
+    @media(max-width:900px){
+
+      .top-section{
+        flex-direction:column;
+      }
+    }
+
+    /* =========================
+        MAIN CONTENT
+    ==========================*/
+
+    .container{
+
+      width:85%;
+      max-width:1100px;
+
+      margin:auto;
+
+      padding:60px 0;
+    }
+
+    /* PROFILE SECTION */
+
+    .profile-section{
+
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+
+      gap:50px;
+
+      background:white;
+
+      padding:45px;
+
+      border-radius:22px;
+
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* LEFT */
+
+    .profile-left{
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+
+      width:250px;
+    }
+
+    .profile-pic{
+
+      width:170px;
+      height:170px;
+
+      border-radius:50%;
+
+      background:#e5e5e5;
+
+      border:5px solid #cc0000;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      overflow:hidden;
+
+      position:relative;
+    }
+
+    .profile-pic img{
+
+      width:100%;
+      height:100%;
+
+      object-fit:cover;
+
+      display:none;
+    }
+
+    .default-icon{
+
+      font-size:90px;
+      color:white;
+    }
+
+    .upload-btn{
+
+      margin-top:18px;
+
+      padding:12px 20px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .upload-btn:hover{
+      background:#ff1a1a;
+      cursor:pointer;
+    }
+
+    /* RIGHT */
+
+    .profile-right{
+      flex:1;
+    }
+
+    .member-name{
+
+      font-size:3rem;
+
+      color:#cc0000;
+
+      margin-bottom:18px;
+    }
+
+    .member-info{
+
+      font-size:1.15rem;
+
+      color:#444;
+
+      margin-bottom:14px;
+    }
+
+    /* =========================
+        HOURS SECTION
+    ==========================*/
+
+    .hours-header{
+
+      margin-top:45px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .hours-title{
+
+      font-size:2rem;
+      color:#cc0000;
+      font-weight:bold;
+    }
+
+    .add-btn{
+
+      padding:12px 22px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .add-btn:hover{
+      background:#ff1a1a;
+      transform:translateY(-3px);
+      box-shadow:0 10px 20px rgba(255,0,0,0.3);
+      cursor:pointer;
+    }
+
+    hr{
+      margin:18px 0 10px;
+      border:1px solid #ddd;
+    }
+
+    /* HOURS LINES */
+
+    .hours-list{
+      background:white;
+
+      border-radius:20px;
+
+      padding:10px 35px;
+
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .hour-line{
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:20px 0;
+
+      border-bottom:1px solid #ddd;
+    }
+
+    .hour-left{
+
+      display:flex;
+      gap:18px;
+
+      align-items:center;
+    }
+
+    .activity{
+      font-weight:bold;
+      color:#222;
+    }
+
+    .hours{
+      color:#666;
+    }
+
+    .change-btn{
+
+      padding:10px 18px;
+
+      border:none;
+      border-radius:8px;
+
+      background:black;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .change-btn:hover{
+      background:#222;
+      cursor:pointer;
+    }
+
+    /* =========================
+        POPUP
+    ==========================*/
+
+    .popup-overlay{
+
+      position:fixed;
+      inset:0;
+
+      background:rgba(0,0,0,0.6);
+
+      display:none;
+
+      justify-content:center;
+      align-items:center;
+
+      z-index:3000;
+    }
+
+    .popup{
+
+      width:90%;
+      max-width:450px;
+
+      background:white;
+
+      border-radius:20px;
+
+      padding:35px;
+
+      position:relative;
+    }
+
+    .close-btn{
+
+      position:absolute;
+      top:15px;
+      right:20px;
+
+      color:#cc0000;
+
+      font-size:30px;
+
+      cursor:pointer;
+    }
+
+    .popup h2{
+
+      text-align:center;
+
+      color:#cc0000;
+
+      margin-bottom:25px;
+    }
+
+    .popup form{
+
+      display:flex;
+      flex-direction:column;
+
+      gap:16px;
+    }
+
+    .popup input{
+
+      padding:14px;
+
+      border:2px solid #ddd;
+      border-radius:10px;
+
+      font-size:15px;
+
+      outline:none;
+    }
+
+    .popup input:focus{
+      border-color:#cc0000;
+    }
+
+    .popup button{
+
+      padding:14px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#cc0000;
+      color:white;
+
+      font-weight:bold;
+
+      cursor:pointer;
+    }
+
+    .popup button:hover{
+      background:#ff1a1a;
+      cursor:pointer;
+    }
+
+    @media(max-width:900px){
+
+      .profile-section{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .profile-right{
+        text-align:center;
+      }
+    }
+
+    /* ======================
+      MENU BUTTON
+====================== */
+
+.menu-btn{
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    width:45px;
+    height:45px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#b30000;
+
+    color:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:3001;
+
+    transition:0.3s;
+
+    border-style: solid;
+
+    border-color: white;
+
+}
+
+.menu-btn:hover{
+
+    background:#ff1a1a;
+
+    transform:scale(1.08);
+    cursor:pointer;
+
+}
+
+/* ======================
+      SIDEBAR
+====================== */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:-300px;
+
+    width:280px;
+    height:100%;
+
+    background:white;
+
+    transition:0.4s;
+
+    z-index:3000;
+
+    box-shadow:5px 0 18px rgba(0,0,0,.35);
+
+    overflow:auto;
+
+}
+
+.sidebar.active{
+
+    left:0;
+
+}
+
+/* ======================
+      HEADER
+====================== */
+
+.sidebar-header{
+
+    text-align:center;
+
+    padding:20px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+}
+
+.sidebar-logo{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50px;
+
+    border-style: solid;
+
+    border-color: gray;
+
+    background:white;
+
+    color:#cc0000;
+
+    font-size:80px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.sidebar-header h2{
+
+    color:black;
+
+}
+
+/* ======================
+      LINKS
+====================== */
+
+.sidebar a{
+
+    display:block;
+
+    padding:18px 30px;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-size:17px;
+
+    transition:.25s;
+
+}
+
+.sidebar a:hover{
+    background:#cc0000;
+
+    padding-left:38px;
+    
+    cursor:pointer;
+}
+
+/* ===========================
+        MAIN LAYOUT
+=========================== */
+
+.main{
+
+    width:90%;
+    max-width:1500px;
+    margin:auto;
+    padding:45px 0;
+
+    display:flex;
+    gap:40px;
+
+    align-items:flex-start;
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+/* ===========================
+        PHONE
+=========================== */
+
+.phone{
+
+    width:430px;
+
+    background:#111;
+
+    border-radius:48px;
+
+    padding:18px;
+
+    border:5px solid #2b2b2b;
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,.45),
+        inset 0 0 3px rgba(255,255,255,.2);
+
+    position:relative;
+
+    flex:0 0 420px;
+}
+
+.phone-screen{
+
+    height:780px;
+
+    background:white;
+
+    border-radius:36px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:relative;
+}
+
+.phone-notch{
+
+    width:170px;
+
+    height:28px;
+
+    background:black;
+
+    border-radius:0 0 20px 20px;
+
+    margin:auto;
+
+    position:relative;
+
+}
+
+.phone-notch::before{
+
+    content:"";
+
+    width:12px;
+
+    height:12px;
+
+    background:#333;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    right:18px;
+
+    top:8px;
+
+}
+
+/* ===========================
+        CHAT HEADER
+=========================== */
+
+.chat-header{
+
+    background:linear-gradient(
+        180deg,
+        #d90000,
+        #b10000
+    );
+
+    color:white;
+
+    padding:18px;
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+
+}
+
+/* ===========================
+        CHAT AREA
+=========================== */
+
+.chat-area{
+
+    height:520px;
+
+overflow-y:auto;
+
+padding-right:6px;
+
+}
+
+.chat-area::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.chat-area::-webkit-scrollbar-thumb{
+
+    background:#c9c9c9;
+
+    border-radius:10px;
+
+}
+
+.chat-area::-webkit-scrollbar-track{
+
+    background:white;
+
+}
+
+/* individual messages */
+
+.message{
+
+  margin-top: 10px;
+  margin-bottom:25px;
+  margin-left:4px;
+
+}
+
+.message-top{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
+
+.profile{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:#dadada;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    border:2px solid #cfcfcf;
+
+}
+
+.message-info{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.username{
+
+    font-weight:bold;
+    color:#222;
+
+}
+
+.time{
+
+    font-size:12px;
+    color:#777;
+
+}
+
+.message-box{
+
+    margin-left:58px;
+
+    margin-top:10px;
+
+    background:#f4f4f4;
+
+    padding:14px 16px;
+
+    border-radius:16px;
+
+    line-height:1.7;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.message-box:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.12);
+
+}
+
+/* ===========================
+        CHAT INPUT
+=========================== */
+
+.chat-input{
+
+    border-top:1px solid #ddd;
+
+    padding:15px;
+
+}
+
+.counter{
+
+    text-align:right;
+
+    color:#777;
+
+    font-size:12px;
+
+    margin-bottom:8px;
+
+}
+
+.chat-bottom{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+#chatInput{
+
+    width:100%;
+
+    height:80px;
+
+    resize:none;
+
+    border:2px solid #ddd;
+
+    border-radius:14px;
+
+    padding:14px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+    font-family:inherit;
+
+    margin-bottom:12px;
+
+    box-sizing:border-box;
+
+}
+
+#chatInput:focus{
+
+    border-color:#cc0000;
+
+    box-shadow:0 0 12px rgba(204,0,0,.2);
+
+}
+
+.chat-bottom button{
+
+    background:#cc0000;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 22px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.25s;
+
+}
+
+.chat-bottom button:hover{
+
+    background:#e00000;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 15px rgba(204,0,0,.3);
+    cursor:pointer;
+
+}
+
+/* ===========================
+        BULLETIN BOARD
+=========================== */
+
+.board{
+
+flex:1;
+
+    min-width:500px;
+
+    height:830px;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:35px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    border:18px solid #6d4320;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.15) 2px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.12) 2px, transparent 3px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.15) 2px, transparent 3px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.10) 2px, transparent 3px),
+        linear-gradient(135deg,#b9834d,#c9925c,#b57a43);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.28),
+        inset 0 0 25px rgba(255,255,255,.08);
+
+}
+
+/* header */
+
+.board-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.board-title{
+
+    font-size:42px;
+
+    color:white;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    text-shadow:
+        2px 2px 8px rgba(0,0,0,.45);
+
+}
+
+.board-search{
+
+    width:280px;
+
+    padding:13px 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.board-search:focus{
+
+    box-shadow:0 0 14px rgba(255,255,255,.5);
+
+}
+
+/* announcement list */
+
+.announcement-list{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding-right:8px;
+
+    min-height:0;
+
+}
+
+/* card */
+
+.announcement{
+
+   background:#fff8b5;
+
+padding:18px;
+
+margin-bottom:20px;
+
+border-radius:12px;
+
+box-shadow:0 6px 15px rgba(0,0,0,.15);
+
+transform:rotate(-0.5deg);
+
+transition:.25s;
+
+}
+
+.announcement:nth-child(odd){
+
+    transform:rotate(-1deg);
+
+}
+
+.announcement:nth-child(even){
+
+    transform:rotate(1deg);
+
+}
+
+.announcement:hover{
+
+    transform:rotate(0deg) scale(1.01);
+
+
+}
+
+.announcement::before{
+
+    content:"";
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:#c40000;
+
+    position:absolute;
+
+    top:10px;
+
+    right:18px;
+
+    box-shadow:
+        inset -2px -2px 5px rgba(0,0,0,.25),
+        0 2px 4px rgba(0,0,0,.3);
+
+}
+
+.announcement-top{
+
+    display:flex;
+    justify-content:space-between;
+
+}
+
+.poster{
+
+    display:flex;
+
+    gap:14px;
+
+    align-items:center;
+
+}
+
+.poster-info{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.poster-name{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    color:#222;
+
+}
+
+.poster-time{
+
+    font-size:12px;
+
+    color:#888;
+
+    margin-top:3px;
+
+}
+
+.pin{
+
+    color:#cc0000;
+    font-size:14px;
+    font-weight:bold;
+
+}
+
+.announcement-text{
+
+    margin-top:20px;
+
+    font-size:15px;
+
+    line-height:1.8;
+
+    color:#444;
+
+}
+
+.ann-actions{
+
+    margin-top:15px;
+
+    display:flex;
+    gap:10px;
+}
+
+.ann-actions button{
+
+    background:#cc0000;
+    color:white;
+
+    padding:8px 16px;
+}
+
+.ann-actions button:hover{
+
+    background:#ff2c2c;
+    cursor:pointer;
+
+}
+
+@media (max-width:1100px){
+
+.main{
+    flex-direction:column;
+    align-items:center;
+}
+
+.phone{
+    width:100%;
+    max-width:430px;
+}
+
+.board{
+    width:100%;
+    min-width:unset;
+}
+}
+
+/* buttons */
+
+.card-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+
+}
+
+.card-buttons button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-weight:bold;
+
+}
+
+.pin-btn{
+
+    background:#ffe082;
+
+}
+
+.pin-btn:hover{
+
+    background:#ffd54f;
+
+    transform:translateY(-2px);
+    cursor:pointer;
+
+}
+
+.pin-icon{
+
+margin-left:8px;
+
+font-size:18px;
+
+}
+
+.edit-btn{
+
+    background:#cc0000;
+
+    color:white;
+
+}
+
+.edit-btn:hover{
+
+    background:#e00000;
+
+    transform:translateY(-2px);
+    cursor:pointer;
+
+}
+
+.delete-btn{
+
+    background:#111;
+
+    color:white;
+
+}
+
+.delete-btn:hover{
+
+    background:#e00000;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 15px rgba(204,0,0,.3);
+    cursor:pointer;
+
+}
+
+.lock-btn{
+
+    background:#cc0000;
+
+    color:white;
+
+}
+
+.lock-btn:hover{
+
+    background:#e00000;
+
+    transform:translateY(-2px);
+    cursor:pointer;
+
+}
+
+.lock-icon{
+
+margin-left:8px;
+
+font-size:18px;
+
+}
+
+/* ===========================
+    NEW ANNOUNCEMENT
+=========================== */
+
+.new-announcement{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.18);
+
+}
+
+.new-announcement h2{
+
+    color:#cc0000;
+    margin-bottom:15px;
+
+}
+
+.new-announcement textarea{
+
+    width:100%;
+
+    height:80px;
+
+    resize:vertical;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border:2px solid #ddd;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.new-announcement textarea:focus{
+
+    border-color:#cc0000;
+
+    box-shadow:0 0 12px rgba(204,0,0,.2);
+
+}
+
+.announcement-bottom{
+
+    margin-top:15px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+@keyframes fadeInUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.announcement{
+
+    animation:fadeInUp .35s ease;
+
+}
+
+.post-btn{
+
+    background:#cc0000;
+
+    color:white;
+
+    border:none;
+
+    padding:13px 28px;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.post-btn:hover{
+
+    background:#e00000;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(204,0,0,.28);
+    cursor:pointer;
+
+}
+
+.message{
+
+    animation:fadeMessage .35s ease;
+
+}
+
+@keyframes fadeMessage{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.pinned{
+
+    position:absolute;
+
+    top:18px;
+
+    left:-35px;
+
+    width:120px;
+
+    text-align:center;
+
+    background:#c40000;
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    padding:6px 0;
+
+    transform:rotate(-45deg);
+
+    letter-spacing:1px;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.25);
+
+}
+
+.msg-row{
+
+display:flex;
+gap:15px;
+align-items:flex-start;
+
+}
+
+.msg-content{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.msg-header{
+
+    margin-bottom:6px;
+
+}
+
+.msg-text{
+
+    background:#f5f5f5;
+
+    padding:12px 14px;
+
+    border-radius:12px;
+
+    word-break:break-word;
+
+}
+
+.announcement-list::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+.announcement-list::-webkit-scrollbar-thumb{
+
+background:#c44;
+border-radius:20px;
+
+}
+
+/* =====================
+   DELETE POPUP
+===================== */
+
+.dpopup{
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,0.45);
+
+    z-index: 9999;
+
+}
+
+.dpopup-box{
+
+    background: white;
+
+    width: 400px;
+
+    max-width: 90%;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    align-items: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    animation: dpopupFade .2s ease;
+
+}
+
+.dpopup-box h2{
+
+    margin-bottom: 10px;
+
+    color: #c8102e;
+
+}
+
+.dpopup-box p{
+
+    margin-bottom: 20px;
+
+    color: #555;
+
+}
+
+.dpopup-buttons{
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+}
+
+.dpopup-buttons button{
+
+    padding: 10px 22px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+}
+
+.dpopup-buttons .delete-btn{
+
+    background: #c8102e;
+
+    color: white;
+
+}
+
+.dpopup-buttons .delete-btn:hover{
+
+    background: #a40d24;
+    transition:0.3s ease;
+
+}
+
+@keyframes dpopupFade{
+
+    from{
+
+        opacity: 0;
+
+        transform: scale(.9);
+
+    }
+
+    to{
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+.dpopup-buttons .cancel-btn{
+    background: #efefef;
+}
+
+.dpopup-buttons .cancel-btn:hover{
+
+    transform:translateY(-2px);
+    background: #dfdfdf;
+
+    box-shadow:0 8px 15px rgba(67,67,67,.3);
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.officer-buttons{
+    display:flex;
+    gap:8px;
+    margin-left:auto;
+}
+
+.lock-icon{
+
+    margin-left:8px;
+
+    color:#d32f2f;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+.locked-label{
+
+    background: #fff8d6;
+
+    color: #8a6d00;
+
+    padding: 4px 8px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+}
+
+.request{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.12);
+
+    border-left:6px solid #c8102e;
+
+}
+
+.request-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.pending-tag{
+
+    background:#ffe08a;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+}
+
+.request-actions{
+
+    display:flex;
+
+    justify-content:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+    .approve-btn{
+      padding:11px 18px;
+
+      border:none;
+
+      border-radius:10px;
+
+      background:#cc0000;
+
+      color:white;
+
+      font-size:18x;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+    }
+
+    .approve-btn:hover{
+      background:#ff1a1a;
+
+      transform:translateY(-3px);
+
+      box-shadow:0 10px 20px rgba(255,0,0,0.3);
+
+      cursor:pointer;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+  <!-- MENU BUTTON -->
+
+<button class="menu-btn" onclick="event.stopPropagation(); toggleSidebar();">
+    ☰
+</button>
+
+<!-- SIDEBAR -->
+
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+<br>
+        <div class="sidebar-logo">
+            <b>+</b>
+        </div>
+
+        <h2>Red Cross Volunteer Site</h2>
+
+    </div>
+
+    <hr>
+
+    <a href="#" onclick="go('home')">
+        🏠 Dashboard
+    </a>
+
+    <a href="#" onclick="goSearch()">
+        🔍 Search Schools
+    </a>
+
+    <a href="#" onclick="openAdd()">
+        ➕ Add School
+    </a>
+
+    <a href="#" onclick="goClub()">
+        👥 Club
+    </a>
+
+    <a href="#" onclick="goMember()">
+       👤 Member & Profile
+    </a>
+
+    <a href="#" onclick="goAnnouncements()">
+        📢 Announcements
+    </a>
+
+    <a href="#" onclick="goChat()">
+       📱 Club Chat
+    </a>
+
+    <a href="#" onclick="scrollAbout()">
+        👀 About
+    </a>
+
+    <a href="#" onclick="scrollFeedback()">
+        ❓ Feedback
+    </a>
+
+</div>
+  <!-- ======================
+        NAVBAR
+  ======================= -->
+
+  <nav class="navbar">
+
+    <div class="logo-section">
+
+      <div class="logo">
+        +
+      </div>
+
+      <div class="site-title">
+        Red Cross Volunteer Site
+      </div>
+
+    </div>
+
+    <div class="nav-links">
+
+      <a onclick="go('home')">
+        Home
+      </a>
+
+      <a onclick="goSearch()">
+        Search
+      </a>
+
+      <a onclick="openAdd()">
+        Add
+      </a>
+
+      <a onclick="scrollAbout()">
+        About
+      </a>
+
+    </div>
+
+  </nav>
+
+  <!-- ======================
+        HERO / SEARCH
+  ======================= -->
+
+  <div id="home" class="page active">
+
+  <section
+    class="hero"
+    id="hero"
+  >
+
+    <div
+      class="hero-content"
+      id="home-search"
+    >
+
+      <h1>
+        Find Your School
+      </h1>
+
+      <p>
+        Search for schools, explore volunteer opportunities, and track your service hours.
+      </p>
+<br>
+      <div class="search-container">
+
+        <input
+          id="homeSearch"
+          type="text"
+          placeholder="Search schools..."
+          class="search-input"
+        >
+
+        <!search.html to other page>
+        <button
+          class="search-btn"
+          onclick="goSearch()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </section>
+<hr>
+  <!-- ======================
+        ADD SECTION
+  ======================= -->
+
+  <section
+    class="add-section"
+    id="add"
+  >
+
+    <!-- CAROUSEL -->
+
+    <div class="carousel">
+
+      <img src="https://www.redcross.org/content/dam/redcross/uncategorized/12/Wednesdayphoto.jpg.transform/1288/q70/feature/image.jpeg">
+
+      <img src="https://i.pinimg.com/originals/08/76/3c/08763cf49f4ed36e01b353c27f748a4c.jpg">
+
+      <img src="https://th.bing.com/th/id/R.8f6a3a6799b1fba26b0b8c4a4b027690?rik=CzAD92I1kV6tog&riu=http%3a%2f%2fredcrosslatalks.org%2fwp-content%2fuploads%2f2017%2f02%2fOne-Red-Cross-Photo.png&ehk=mZivNOn%2fVFYcTEpgKBjre0dUKA6folsjlJvjx442TzM%3d&risl=&pid=ImgRaw&r=0">
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="add-content">
+
+      <h2>
+        Add a School
+      </h2>
+
+      <p>
+        Starting a volunteer club at your school? Add it to our growing database and start tracking service hours the easy way.
+      </p>
+
+      <!-- CHANGE add.html TO YOUR PAGE -->
+      <button
+        class="add-btn"
+        onclick="openAdd()"
+      >
+        Add School
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+        ABOUT + FEEDBACK
+  ======================= -->
+
+<hr>
+  <section
+    class="about-feedback"
+    id="about"
+  >
+
+    <!-- ABOUT -->
+
+    <div class="about" id="about">
+
+      <h2>
+        About
+      </h2>
+
+      <p>
+        This website was created by a student to support the organization and management of her American Red Cross Volunteer club. It serves as a platform where members are able to log and track their volunteer hours, view their service history, and stay informed about club activities and announcements. The site was deisgned to simplify record-keeping and improve club communication. By providing an efficient and user-friendly system for documenting service, this website helps clubs stay organized and focused on making a meaningful impact in the community.
+      </p>
+
+<br>
+
+<br>
+
+<br>
+
+    </div>
+
+    <!-- FEEDBACK -->
+
+    <div class="feedback" id="feedback">
+
+      <h2>
+        Feedback
+      </h2>
+
+      <p>
+        Have any feedback for us? Feel free to suggest ways we can improve our site.
+      </p>
+<br>
+<br>
+      <form class="feedback-form">
+
+        <input
+          type="text"
+          placeholder="Your Name"
+        >
+
+        <input
+          type="email"
+          placeholder="Your Email"
+        >
+
+        <textarea
+          placeholder="Your Feedback"
+        ></textarea>
+
+        <button type="submit">
+          Submit Feedback
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <hr>
+
+  </div>
+  
+  <div id="search" class="page">
+
+  <!-- ======================
+        HEADER
+  ======================= -->
+
+  <section class="page-header">
+
+  <br><br><br><br><br>
+  
+    <h1>
+      Search Results
+    </h1>
+
+    <p>
+      Browse schools and find your club.
+    </p>
+
+    <br>
+    <br>
+
+    <div class="search-container">
+
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search schools..."
+          class="search-input"
+          oninput="renderSchools()"
+        >
+
+        <!search.html for schools>
+        <button
+          class="search-btn"
+        >
+          Search
+        </button>
+      </div>
+
+  </section>
+
+  <div class="cards-container">
+
+  <!-- ======================
+        SCHOOL CARDS
+  ======================= -->
+
+  <section class="cards-container" id="cardsContainer">
+
+    <!-- ======================
+          ADD CARD
+    ======================= -->
+
+    <div class="add-card" id="addCard">
+
+      <div
+        class="add-icon"
+        onclick="openPopup()"
+      >
+        +
+      </div>
+      <br>
+      <p>
+        Add a School
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+        POPUP FORM
+  ======================= -->
+
+  <div
+    class="popup-overlay"
+    id="popup"
+  >
+
+    <div class="popup-form">
+
+      <!-- CLOSE BUTTON -->
+
+      <div
+        class="close-btn"
+        onclick="closePopup()"
+      >
+        ✕
+      </div>
+
+      <h2>
+        Add a School
+      </h2>
+
+      <form class="school-form">
+
+        <input
+          id="schoolName"
+          type="text"
+          placeholder="School Name"
+          required
+        >
+
+        <input
+          id="schoolAddress"
+          type="text"
+          placeholder="City"
+          required
+        >
+
+        <input
+          id="schoolState"
+          type="text"
+          placeholder="State Abbreviation"
+          required
+        >
+
+        <input
+          id="schoolPhone"
+          type="number"
+          placeholder="Phone Number"
+          required
+          maxlength="10"
+        >
+
+        <button type="button" onclick="addSchool()">
+          Add
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================
+       CODE POPUP
+  ======================= -->
+
+  <div
+    class="codepopup-overlay"
+    id="codepopup"
+  >
+
+    <div class="codepopup-form">
+
+      <!-- CLOSE BUTTON -->
+
+      <div
+        class="close-btn"
+        onclick="closeCodePopup()"
+      >
+        ✕
+      </div>
+
+      <h2>
+        Enter School Code
+      </h2>
+
+      <br>
+
+      <form class="school-form">
+
+        <input
+          id="schoolCode"
+          type="number"
+          placeholder="School Code"
+          required
+        >
+
+        <button type="button" onclick="checkCode()">
+          Enter
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+  </div>
+
+  </div>
+
+  <div id="club" class="page">
+  
+  <br><br><br><br>
+  
+  <!-- ======================
+        MAIN CONTENT
+  ======================= -->
+
+  <div class="container">
+
+    <!-- TOP SECTION -->
+
+    <div class="top-section">
+
+      <!-- SCHOOL INFO -->
+
+      <div class="school-info" id="schoolInfo">
+
+      </div>
+
+      <!-- OFFICERS -->
+
+      <div class="officers" id="officers">
+
+        <!-- PRESIDENT -->
+
+        <div
+          class="officer-line"
+          id="president-line"
+        >
+
+          <div class="officer-left">
+
+            <span class="role">
+              President
+            </span>
+
+          </div>
+
+          <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('President', 'president-line')"
+          >
+            Add Info
+          </button>
+
+        </div>
+
+        <!-- VP -->
+
+        <div
+          class="officer-line"
+          id="vp-line"
+        >
+
+          <div class="officer-left">
+
+            <span class="role">
+              Vice President
+            </span>
+
+          </div>
+
+          <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('Vice President', 'vp-line')"
+          >
+            Add Info
+          </button>
+
+        </div>
+
+        <!-- SECRETARY -->
+
+        <div
+          class="officer-line"
+          id="secretary-line"
+        >
+
+          <div class="officer-left">
+
+            <span class="role">
+              Secretary
+            </span>
+
+          </div>
+
+          <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('Secretary', 'secretary-line')"
+          >
+            Add Info
+          </button>
+
+        </div>
+
+        <!-- TREASURER -->
+
+        <div
+          class="officer-line"
+          id="treasurer-line"
+        >
+
+          <div class="officer-left">
+
+            <span class="role">
+              Treasurer (Optional)
+            </span>
+
+          </div>
+
+          <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('Treasurer', 'treasurer-line')"
+          >
+            Add Info
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- MEMBERS -->
+
+    <div class="members-section">
+
+      <div class="members-header">
+
+        <h2>
+          Members
+        </h2>
+
+        <button
+          class="add-member-btn"
+          onclick="openMemberPopup()"
+          id="addMemberBtn"
+        >
+          Add
+        </button>
+
+      </div>
+
+      <hr>
+<br>
+      <div id="members-list">
+
+        <!-- MEMBERS WILL GO HERE -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ======================
+        OFFICER POPUP
+  ======================= -->
+
+  <div
+    class="popup-overlay"
+    id="officerPopup"
+  >
+
+    <div class="popup">
+
+      <div
+        class="close-btn"
+        onclick="closeOfficerPopup()"
+      >
+        ✕
+      </div>
+
+      <h2 id="popupRoleTitle">
+        Add Officer
+      </h2>
+
+      <form>
+
+        <input
+          type="text"
+          id="officerName"
+          placeholder="Enter Name"
+        >
+
+        <input
+          type="text"
+          id="officerEmail"
+          placeholder="Enter Email"
+        >
+
+        <button
+          type="button"
+          class="add-btn"
+          onclick="submitOfficer()"
+        >
+          Submit
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- ======================
+        MEMBER POPUP
+  ======================= -->
+
+  <div
+    class="popup-overlay"
+    id="memberPopup"
+  >
+
+    <div class="popup">
+
+      <div
+        class="close-btn"
+        onclick="closeMemberPopup()"
+      >
+        ✕
+      </div>
+
+      <h2>
+        Add Member
+      </h2>
+
+      <form>
+
+        <input
+          type="text"
+          id="memberName"
+          placeholder="Member Name"
+        >
+
+        <input
+          type="text"
+          id="memberEmail"
+          placeholder="Member Email"
+        >
+
+        <button
+          type="button"
+          class="add-btn"
+          onclick="submitMember()"
+        >
+          Submit
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div id="deletePopup" class="dpopup">
+
+    <div class="dpopup-box">
+
+        <h2>Remove Member</h2>
+
+        <p id="deleteText">
+            Are you sure?
+        </p>
+
+        <div class="dpopup-buttons">
+
+            <button onclick="closeDeletePopup()" class="cancel-btn">
+                Cancel
+            </button>
+
+            <button
+                class="delete-btn"
+                onclick="confirmDelete()"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+  </div>
+
+  <div id="member" class="page">
+  
+  <br><br><br><br>
+
+  <!-- ======================
+        MAIN CONTENT
+  ======================= -->
+
+  <div class="container">
+
+    <!-- PROFILE -->
+
+    <div class="profile-section">
+
+      <!-- LEFT -->
+
+      <div class="profile-left">
+
+        <div class="profile-pic">
+
+          <span class="default-icon">
+            👤
+          </span>
+
+          <img id="profileImage">
+
+        </div>
+
+        <button
+          class="upload-btn"
+          onclick="document.getElementById('imageUpload').click()"
+        >
+          Change Picture
+        </button>
+
+        <input
+          type="file"
+          id="imageUpload"
+          accept="image/*"
+          hidden
+        >
+
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="profile-right" id="memberInfo">
+
+      </div>
+
+    </div>
+
+    <!-- HOURS HEADER -->
+
+    <div class="hours-header">
+
+      <div
+        class="hours-title"
+        id="hoursTitle"
+      >
+        Volunteer Hours: 0
+      </div>
+
+      <button
+        class="add-btn"
+        onclick="openVolunteerPopup()"
+      >
+        Add
+      </button>
+
+    </div>
+
+    <hr>
+
+    <!-- HOURS LIST -->
+
+    <div
+      class="hours-list"
+      id="hoursList"
+    >
+
+      <!-- VOLUNTEER LINES GO HERE -->
+
+    </div>
+
+  </div>
+
+  <!-- ======================
+        POPUP
+  ======================= -->
+
+  <div
+    class="popup-overlay"
+    id="volunteerPopup"
+  >
+
+    <div class="popup">
+
+      <div
+        class="close-btn"
+        onclick="closeVolunteerPopup()"
+      >
+        ✕
+      </div>
+
+      <h2>
+        Volunteer Activity
+      </h2>
+
+      <form>
+
+        <input
+          type="text"
+          id="activityInput"
+          placeholder="Activity"
+        >
+
+        <input
+          type="number"
+          id="hoursInput"
+          placeholder="Hours"
+        >
+
+        <button
+          class="add-btn"
+          type="button"
+          onclick="submitHours()"
+        >
+          Save
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  </div>
+
+<br><br><br><br>
+
+<div id="announcements" class="page">
+
+<div class="main">
+
+<!-- PHONE -->
+
+<div class="phone" id="phone">
+
+<div class="phone-screen">
+
+<div class="phone-notch"></div>
+
+<div class="chat-header">
+
+💬 Club Chat
+
+</div>
+
+<div class="chat-area" id="chatContainer">
+
+<!-- Messages appear here -->
+
+</div>
+
+<div class="chat-input">
+
+<textarea placeholder="Type a message..." id="chatInput"></textarea> 
+
+<div class="chat-bottom">
+
+<div class="chatCounter" id="chatCounter">
+
+0 / 250
+
+</div>
+
+<button onclick="sendChatMessage()">
+
+Send
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BULLETIN -->
+
+<div class="board" id="board">
+
+<div class="board-header">
+
+<div class="board-title">
+
+📌 Bulletin Board
+
+</div>
+
+<input
+id="announcementSearch"
+class="board-search"
+placeholder="Search announcements..."
+oninput="renderAnnouncements()"
+>
+
+</div>
+
+<div
+class="announcement-list"
+id="announcementContainer"
+>
+
+<!-- announcements appear here -->
+
+</div>
+
+<br>
+<div class="new-announcement" id="newAnnouncementBox">
+
+<h2>
+
+New Announcement
+
+</h2>
+
+<textarea placeholder="Write your announcement..." id="announcementInput"></textarea>
+
+<div class="announcement-bottom">
+
+<div id="annCounter">
+
+0 / 500
+
+</div>
+
+<button class="post-btn" onclick="postAnnouncement()">
+
+Post
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="requests" class="page">
+
+    <div class="requests-container">
+        <br><br><br><br>
+        <h1 style="text-align:center;">Pending Requests</h1>
+        <br><br><br>
+        <div id="requestContainer">
+          <h2>👤 Member Requests <hr></h2>
+          <div id="memberRequests"></div>
+          <br>
+          <h2>⭐ Officer Requests <hr></h2>
+          <div id="officerRequests"></div>
+          <br>
+          <h2>⏱ Volunteer Hour Requests <hr></h2>
+          <div id="hourRequests"></div>
+          <br>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+© 2026 Red Cross Volunteer Site. All Rights Reserved.
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+    let schools = JSON.parse(localStorage.getItem("schools") || "[]");
+    schools.forEach(school => {
+
+    if(!school.requests){
+
+        school.requests = [];
+
+    }
+
+});
+
+saveSchools();
+
+    let currentSchool = null;
+    let currentMember = null;
+    let selectedSchoolCode = null;
+
+    let editingLine = null;
+    let manageMode = false;
+
+    let deleteID = null;
+    let deleteType = "";  
+
+    function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("active");
+}
+
+function closeSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("active");
+
+}
+
+    /* NAV */
+    function go(p){
+      document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+      document.getElementById(p).classList.add("active");
+    }
+
+    /* ABOUT */
+    function scrollAbout(){
+      go("home");
+      setTimeout(()=>{
+       document.getElementById("about").scrollIntoView({behavior:"smooth"});
+      },200);
+    }
+
+    /* FEEDBACK */
+    function scrollFeedback(){
+      go("home");
+      setTimeout(()=>{
+       document.getElementById("feedback").scrollIntoView({behavior:"smooth"});
+      },200);
+    }
+
+    /* SEARCH PAGE */
+    function goSearch(){
+     go("search");
+     renderSchools();
+     document.getElementById("homeSearch").value = "";
+    }
+
+    /* ADD SCHOOL */
+    function openAdd(){
+      go("search");
+      document.getElementById("popup").style.display="flex";
+    }
+
+    /* ANNOUNCEMENTS */
+    function openAnn(){
+      go("announcements");
+    }
+
+    function openRequests(){
+
+    go("requests");
+
+    renderRequests();
+  }
+
+    function openPopup(){
+
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup(){
+
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function openCodePopup(code){
+
+       selectedSchoolCode = code;
+       document.getElementById("codepopup").value = "";
+
+      document.getElementById("codepopup").style.display = "flex";
+    }
+
+    function closeCodePopup(){
+
+      document.getElementById("schoolCode").value = "";
+
+      document.getElementById("codepopup").style.display = "none";
+
+    }
+
+  function addSchool(){
+
+    const container = document.getElementById("cardsContainer");
+
+    // GET INPUT VALUES
+    const schoolName =
+      document.getElementById("schoolName").value
+
+    const schoolAddress =
+      document.getElementById("schoolAddress").value
+
+    const schoolState =
+      document.getElementById("schoolState").value
+
+    document.getElementById("schoolState").addEventListener("input", function(){
+
+    this.value = this.value.toUpperCase();
+
+});
+
+    const schoolPhone =
+      document.getElementById("schoolPhone").value
+
+    const addCard = document.querySelector(".add-card");
+
+    // VALIDATION
+    if(!schoolName.trim() || !schoolAddress.trim() || !schoolState.trim() || !schoolPhone.trim()){
+
+      alert("Please fill out all fields!");
+
+      return;
+    }
+
+    const phone =
+    document.getElementById("schoolPhone").value;
+
+const digits =
+    phone.replace(/\D/g,"");
+
+    if(digits.length !== 10){
+
+    alert("Phone number must contain exactly 10 digits.");
+
+    return;
+
+}
+
+    if(!/^[A-Za-z]{2}$/.test(schoolState)){
+      alert("Enter a valid 2-letter uppercase state abbreviation.");
+      return;
+    }
+
+  const schoolCode =
+  Math.floor(100000 + Math.random() * 900000);
+
+  // STORAGE
+  schools.push({
+    name: schoolName || "",
+    address: schoolAddress || "",
+    state: schoolState || "",
+    phone: schoolPhone || "",
+    code: schoolCode,
+    officers: [],
+    members: [],
+    chatMessages:[],
+    announcements:[],
+    requests: []
+  });
+
+saveSchools();
+
+  renderSchools();
+
+    // RESET FORM
+    document.querySelector(".school-form").reset();
+
+    // CLOSE POPUP
+    closePopup();
+
+    // OPEN CLUB PAGE
+    openSchool(schools[schools.length - 1]);
+  }
+
+function renderSchools(){
+
+  console.log("renderSchools running");
+
+  const search =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+  const container =
+    document.getElementById("cardsContainer");
+
+  container.innerHTML = "";
+
+  const results = schools.filter(school =>
+
+    school &&
+    school.name &&
+    school.name.toLowerCase().includes(search)
+
+);
+
+  schools
+  .filter(school =>
+    school &&
+    school.name &&
+    school.name.toLowerCase().includes(search)
+  )
+    .forEach((school, index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "school-card";
+
+      card.innerHTML = `
+        <div class="school-icon">🏫</div>
+
+        <h2>${school.name}</h2>
+
+        <p class="school-address">
+          ${school.address}, ${school.state}
+        </p>
+
+        <button class="view-btn" onclick="openCodePopup(${school.code})">
+          View
+        </button>
+      `;
+
+      container.appendChild(card);
+    });
+
+    if(results.length === 0){
+
+    container.innerHTML = `
+
+        <p class="no-results" style="margin-top:110px;text-align:center;">
+
+            No schools found.<br>
+    Click the + card to add one!
+
+
+        </p>
+
+    `};
+
+  container.innerHTML += `
+    <div class="add-card" id="addCard">
+
+      <div
+        class="add-icon"
+        onclick="openPopup()"
+      >
+        +
+      </div>
+
+      <br>
+
+      <p>
+        Add a School
+      </p>
+
+    </div>
+  `;
+}
+
+  /* CODE CHECK */
+function checkCode(){
+
+  let school = schools.find(s => Number(s.code) === Number(selectedSchoolCode));
+  let code = document.getElementById("schoolCode").value
+
+  if(code == ""){
+    alert("Please enter a code!");
+  } 
+  else if(code != school.code){
+    document.getElementById("schoolCode").value = "";
+    closeCodePopup();
+    openSchool(school);
+  }
+  else {
+    alert("Wrong code");
+  }
+}
+
+/* CLUB PAGE */
+function openSchool(school){
+
+  currentSchool = school;
+
+  loadOfficers();
+
+  renderMembers();
+
+  renderChat();
+
+  renderAnnouncements();
+
+  go("club");
+
+  const addMember =
+    document.getElementById("addMemberBtn");
+
+addMember.style.display =
+    manageMode ? "none" : "inline-block";
+
+  document.getElementById("schoolInfo").innerHTML=`
+    <h1 style="margin-bottom:12px;">${currentSchool.name}</h1>
+
+    <p style="margin-bottom:10px;"><b>Location:</b> ${currentSchool.address}, ${currentSchool.state}</p>
+
+    <p style="margin-bottom:10px;"><b>Phone:</b> ${currentSchool.phone}</p>
+
+    <p style="margin-bottom:10px;"><b>Code:</b> ${currentSchool.code}</p>
+  `;
+
+  const btn = document.getElementById("manageBtn");
+
+if(manageMode){
+
+    btn.innerText = "Done Managing";
+
+}else{
+
+    btn.innerText = "Manage Club";
+
+}
+
+}
+
+function renderMembers(){
+
+    const container = document.getElementById("members-list");
+
+    container.innerHTML = "";
+
+    const schoolMembers = currentSchool.members.filter(member =>
+    member.schoolCode === currentSchool.code
+);
+
+    schoolMembers.forEach(member => {
+
+        const line = document.createElement("div");
+
+        line.className = "member-line";
+
+        line.innerHTML = `
+<div class="member-left">
+        <img
+        class="member-pfp"
+        src="${member.picture || 'https://static.vecteezy.com/system/resources/previews/055/581/121/non_2x/default-profile-picture-icon-avatar-photo-placeholder-illustration-vector.jpg'}"
+    >
+            <span>${member.name}</span>
+</div>
+            ${
+!manageMode
+?
+`
+<button
+    class="info-btn"
+    onclick="openMember(${member.id})"
+>
+    Info
+</button>
+`
+:
+`
+<button
+    class="info-btn"
+    onclick="askDeleteMember(${member.id})"
+>
+    Delete
+</button>
+`
+}
+            
+        `;
+
+        container.appendChild(line);
+
+    });
+
+}
+
+function renderOfficers(){
+
+    const container = document.getElementById("officers");
+
+    container.innerHTML = "";
+
+    const schoolOfficers = currentSchool.officers;
+
+    schoolOfficers.forEach(officer => {
+
+    const line = document.createElement("div");
+
+    line.className = "member-line";
+
+    let buttonHTML;
+
+    if(!manageMode){
+
+        buttonHTML = `
+            <button
+                class="info-btn"
+                onclick="openMember(${officer.id})"
+            >
+                Info
+            </button>
+        `;
+
+    }
+    else if(officer.role === "President"){
+
+        buttonHTML = `
+            <button
+                class="info-btn"
+                onclick="closeManageMode()"
+            >
+                Back
+            </button>
+
+            <button
+                class="info-btn"
+                onclick="askDeleteOfficer(${officer.id})"
+            >
+                Delete
+            </button>
+        `;
+
+    }
+    else{
+
+        buttonHTML = `
+            <button
+                class="info-btn"
+                onclick="askDeleteOfficer(${officer.id})"
+            >
+                Delete
+            </button>
+        `;
+
+    }
+
+    line.innerHTML = `
+        <div class="member-left">
+
+            <img
+                class="member-pfp"
+                src="${officer.picture || 'https://static.vecteezy.com/system/resources/previews/055/581/121/non_2x/default-profile-picture-icon-avatar-photo-placeholder-illustration-vector.jpg'}"
+            >
+
+            <div>
+
+                <span>${officer.name}</span>
+
+                <div class="role">
+
+                    ${officer.role}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        ${buttonHTML}
+    `;
+
+    container.appendChild(line);
+
+});
+
+}
+
+    let currentRole = "";
+    let currentLineId = "";
+
+    /* =====================
+        OFFICERS
+    ======================*/
+
+    function openOfficerPopup(role, lineId){
+
+      currentRole = role;
+      currentLineId = lineId;
+
+      document.getElementById("popupRoleTitle").innerText =
+        "Add " + role;
+
+      document.getElementById("officerPopup").style.display =
+        "flex";
+    }
+
+    function closeOfficerPopup(){
+
+      document.getElementById("officerPopup").style.display =
+        "none";
+    }
+
+    function submitOfficer(){
+
+      const name =
+        document.getElementById("officerName").value;
+      
+      const email =
+        document.getElementById("officerEmail").value;
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.com$/;
+
+if (!emailPattern.test(email.trim())) {
+
+    alert("Please enter a valid email address.");
+
+    return;
+
+}
+
+      if(!name.trim()){
+
+        alert("Please enter a name!");
+
+        return;
+      }
+
+      if(!email.trim()){
+
+        alert("Please enter an email!");
+
+        return;
+      }
+
+console.log(currentLineId);
+console.log(document.getElementById(currentLineId));
+      const line =
+        document.getElementById(currentLineId);
+
+    const officer = {
+
+    id: Date.now(),
+
+    name: name,
+
+    email: email,
+
+    schoolCode: currentSchool.code,
+
+    totalHours:0,
+
+    activities:[],
+
+    picture:null,
+
+    role: currentRole
+
+};
+
+const hasPresident = currentSchool.officers.some(
+    officer => officer.role === "President"
+);
+
+if(!hasPresident && currentRole !== "President"){
+
+    alert(
+        "A President must be added before any other officers can be added."
+    );
+
+    document.getElementById("officerName").value = "";
+    document.getElementById("officerEmail").value = "";
+
+    closeOfficerPopup();
+
+    return;
+
+}
+
+if(!hasPresident && currentRole === "President"){
+
+    currentSchool.officers.push(officer);
+
+    saveSchools();
+
+    updateOfficerLine(officer);
+
+    document.getElementById("officerName").value = "";
+    document.getElementById("officerEmail").value = "";
+
+    closeOfficerPopup();
+
+    return;
+
+}
+
+currentSchool.requests.push({
+
+    id: Date.now(),
+
+    type: "officer",
+
+    data: officer,
+
+    status: "pending"
+
+});
+
+saveSchools();
+
+alert("Your request has been sent to the club president for approval.");
+
+closeOfficerPopup();
+
+      console.log(document.getElementById("officers").innerHTML);
+
+      document.getElementById("officerName").value = "";
+
+      document.getElementById("officerEmail").value = "";
+
+      console.log(currentSchool.officers);
+
+      closeOfficerPopup();
+    }
+
+function updateOfficerLine(officer){
+
+    let id;
+
+    switch(officer.role){
+
+        case "President":
+            id = "president-line";
+            break;
+
+        case "Vice President":
+            id = "vp-line";
+            break;
+
+        case "Secretary":
+            id = "secretary-line";
+            break;
+
+        case "Treasurer":
+            id = "treasurer-line";
+            break;
+
+    }
+
+    const line = document.getElementById(id);
+
+    let buttonHTML;
+
+if(!manageMode){
+
+    buttonHTML = `
+        <button
+            class="info-btn"
+            onclick="openMember(${officer.id})"
+        >
+            Info
+        </button>
+    `;
+
+}
+else if(officer.role === "President"){
+
+    buttonHTML = `
+        <button
+            class="info-btn"
+            onclick="closeManageMode()"
+        >
+            Back
+        </button>
+
+        <button
+            class="info-btn"
+            onclick="askDeleteOfficer(${officer.id})"
+        >
+            Delete
+        </button>
+    `;
+
+}
+else{
+
+    buttonHTML = `
+        <button
+            class="info-btn"
+            onclick="askDeleteOfficer(${officer.id})"
+        >
+            Delete
+        </button>
+    `;
+
+}
+
+    line.innerHTML = `
+        <div class="officer-left">
+
+            <img
+                class="member-pfp"
+                src="${officer.picture || 'https://static.vecteezy.com/system/resources/previews/055/581/121/non_2x/default-profile-picture-icon-avatar-photo-placeholder-illustration-vector.jpg'}"
+            >
+
+            <div>
+
+                <span>${officer.name}</span>
+
+                <div class="role">
+                    ${officer.role}
+                </div>
+
+            </div>
+
+        </div>
+
+       <div class="officer-buttons">
+        ${buttonHTML}
+       </div>
+        
+        
+    `;
+}
+
+    /* =====================
+        MEMBERS
+    ======================*/
+
+    function openMemberPopup(){
+
+      document.getElementById("memberPopup").style.display =
+        "flex";
+    }
+
+    function closeMemberPopup(){
+
+      document.getElementById("memberPopup").style.display =
+        "none";
+    }
+
+    function submitMember(){
+
+      const memberName =
+        document.getElementById("memberName").value;
+      
+      const memberEmail =
+        document.getElementById("memberEmail").value;
+
+      if(!memberName.trim()){
+
+        alert("Please enter a member name!");
+
+        return;
+      }
+
+      if(!memberEmail.trim()){
+
+        alert("Please enter a member email!");
+
+        return;
+      }
+
+      const email =
+    document.getElementById("memberEmail").value.trim();
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.com$/;
+
+if(!emailPattern.test(email)){
+
+    alert("Please enter a valid email address.");
+
+    return;
+
+}
+
+const hasPresident = currentSchool.officers.some(
+    officer => officer.role === "President"
+);
+
+if(!hasPresident){
+
+    alert(
+        "A President must be added before members can join the club."
+    );
+
+    closeMemberPopup();
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberEmail").value = "";
+
+    return;
+
+}
+
+      const member = {
+
+    id: Date.now(),
+
+    name: memberName,
+
+    email: memberEmail,
+
+    schoolCode: currentSchool.code,
+
+    totalHours:0,
+
+    activities:[],
+
+    picture:null
+
+};
+
+currentSchool.requests.push({
+
+    id: Date.now(),
+
+    type: "member",
+
+    data: member,
+
+    status: "pending"
+
+});
+
+saveSchools();
+
+closeMemberPopup();
+
+alert("Your request has been sent to the club president for approval.");
+
+      document.getElementById("memberName").value = "";
+      document.getElementById("memberEmail").value = "";
+
+    }
+
+/* =========================
+   GLOBAL STATE
+========================= */
+
+let editingAnnouncementId = null;
+
+/* =========================
+   UTIL: TIME + DATE
+========================= */
+
+function getTimestamp() {
+  const now = new Date();
+
+  return now.toLocaleString(); 
+  // gives both date + time automatically
+}
+
+/* =========================
+   CHAT SYSTEM
+========================= */
+
+function sendChatMessage() {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  const message = {
+
+    id: Date.now(),
+
+    memberId: currentMember.id,
+
+    name: currentMember.name,
+
+    picture: currentMember.picture,
+
+    text: text,
+
+    time: getTimestamp()
+
+};
+
+  currentSchool.chatMessages.push(message);
+
+  input.value = "";
+  updateChatCounter();
+
+  try{
+    saveSchools();
+}catch(e){
+
+    console.warn("Storage is full.");
+
+}
+
+renderChat();
+}
+
+function renderChat() {
+  const container = document.getElementById("chatContainer");
+  container.innerHTML = "";
+
+currentSchool.chatMessages.forEach(msg=>{
+    const div = document.createElement("div");
+    div.className = "message";
+
+    div.innerHTML = `
+      <div class="msg-row">
+
+    <img src="${msg.picture || 'https://static.vecteezy.com/system/resources/previews/055/581/121/non_2x/default-profile-picture-icon-avatar-photo-placeholder-illustration-vector.jpg'}" class="profile">
+
+    <div class="msg-content">
+
+        <div class="msg-header">
+
+            <div>
+
+                <div class="name">
+
+                    ${msg.name}
+
+                </div>
+
+                <div class="time">
+
+                    ${msg.time}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="msg-text">
+
+            ${msg.text}
+
+        </div>
+
+    </div>
+
+</div>
+    `;
+
+    container.appendChild(div);
+  });
+
+// Automatically scroll to the newest message
+container.scrollTop = container.scrollHeight;
+}
+
+function updateChatCounter() {
+  const input = document.getElementById("chatInput");
+  const counter = document.getElementById("chatCounter");
+
+  counter.innerText = `${input.value.length}/250`;
+}
+
+/* =========================
+   ANNOUNCEMENTS
+========================= */
+
+function postAnnouncement() {
+  const input = document.getElementById("announcementInput");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  if(editingAnnouncementId){
+
+    const ann =
+        currentSchool.announcements.find(
+            a => a.id === editingAnnouncementId
+        );
+
+    if(ann.locked){
+
+        alert("This announcement is locked.");
+
+        editingAnnouncementId = null;
+
+        document.getElementById("announcementInput").value = "";
+
+        return;
+
+    }
+
+    ann.text = text;
+
+    ann.time = getTimestamp();
+
+    editingAnnouncementId = null;
+
+} else {
+    currentSchool.announcements.push({
+
+    id: Date.now(),
+
+    memberId: currentMember.id,
+
+    name: currentMember.name,
+
+    picture: currentMember.picture,
+
+    text,
+
+    time:getTimestamp(),
+
+    pinned:false,
+
+    locked:false
+
+});
+  }
+
+  input.value = "";
+  updateAnnCounter();
+
+  
+  try{
+    saveSchools();
+}catch(e){
+
+    console.warn("Storage is full.");
+
+}
+
+renderAnnouncements();
+}
+
+function renderAnnouncements() {
+
+    const container =
+        document.getElementById("announcementContainer");
+
+    container.innerHTML = "";
+
+    const officer = isOfficer(currentMember);
+
+
+    // =========================
+    // SORT ANNOUNCEMENTS
+    // =========================
+
+    const sorted =
+        [...currentSchool.announcements].sort((a, b) => {
+
+            if(a.pinned !== b.pinned){
+
+                return b.pinned - a.pinned;
+
+            }
+
+            return b.id - a.id;
+
+        });
+
+
+    // =========================
+    // SEARCH
+    // =========================
+
+    const search =
+        document
+            .getElementById("announcementSearch")
+            .value
+            .toLowerCase();
+
+
+    const results =
+        sorted.filter(ann =>
+
+            ann.text.toLowerCase().includes(search)
+
+            ||
+
+            ann.name.toLowerCase().includes(search)
+
+        );
+
+
+    // =========================
+    // NO RESULTS
+    // =========================
+
+    if(results.length === 0){
+
+        container.innerHTML = `
+            <p
+                class="no-results"
+                style="color:white;margin-top:10px;"
+            >
+                No announcements found.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    // =========================
+    // CREATE ANNOUNCEMENTS
+    // =========================
+
+    results.forEach(ann => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "announcement";
+
+
+        // =========================
+        // BUTTONS
+        // =========================
+
+let actionButtons = "";
+
+// EVERYONE gets Pin
+actionButtons += `
+
+    <button
+        class="pin-btn"
+        onclick="pinAnnouncement(${ann.id})"
+    >
+        ${ann.pinned ? "Unpin" : "Pin"}
+    </button>
+
+`;
+
+// OFFICERS ONLY get Delete/Edit/Lock
+if(officer){
+
+    actionButtons += `
+
+        <button
+            class="delete-btn"
+            onclick="deleteAnnouncement(${ann.id})"
+        >
+            Delete
+        </button>
+
+    `;
+
+    if(!ann.locked){
+
+        actionButtons += `
+
+            <button
+                class="edit-btn"
+                onclick="editAnnouncement(${ann.id})"
+            >
+                Edit
+            </button>
+
+            <button
+                class="lock-btn"
+                onclick="toggleLock(${ann.id})"
+            >
+                🔒 Lock
+            </button>
+
+        `;
+
+    }
+
+}
+
+
+        // =========================
+        // ANNOUNCEMENT HTML
+        // =========================
+
+        div.innerHTML = `
+
+            <div class="msg-row">
+
+                <img
+                    src="${
+                        ann.picture ||
+                        'https://static.vecteezy.com/system/resources/previews/055/581/121/non_2x/default-profile-picture-icon-avatar-photo-placeholder-illustration-vector.jpg'
+                    }"
+                    class="profile"
+                >
+
+
+                <div class="msg-content">
+
+                    <div class="msg-header">
+
+                        <div>
+
+                            <div class="name">
+
+                                ${ann.name}
+
+                                ${
+                                    ann.pinned
+                                    ?
+                                    '<span class="pin-icon">📌</span>'
+                                    :
+                                    ''
+                                }
+
+                                ${
+                                    ann.locked
+                                    ?
+                                    '<span class="lock-icon">🔒 Locked</span>'
+                                    :
+                                    ''
+                                }
+
+                            </div>
+
+
+                            <div class="time">
+
+                                ${ann.time}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="msg-text">
+
+                        ${ann.text}
+
+                    </div>
+
+
+                    <div class="ann-actions">
+
+                        ${actionButtons}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+}
+
+function editAnnouncement(id) {
+
+  const ann = currentSchool.announcements.find(a => a.id === id);
+
+  if(ann.locked){
+
+        alert("This announcement is locked.");
+
+        return;
+
+    }
+
+  document.getElementById("announcementInput").value = ann.text;
+  editingAnnouncementId = id;
+  saveSchools();
+}
+
+function deleteAnnouncement(id) {
+  currentSchool.announcements = currentSchool.announcements.filter(a => a.id !== id);
+  saveSchools();
+  renderAnnouncements();
+}
+
+function togglePin(id) {
+  const ann = currentSchool.announcements.find(a => a.id === id);
+  ann.pinned = !ann.pinned;
+  saveSchools();
+  renderAnnouncements();
+}
+
+function updateAnnCounter() {
+  const input = document.getElementById("announcementInput");
+  const counter = document.getElementById("annCounter");
+
+  counter.innerText = `${input.value.length}/500`;
+}
+
+/* =========================
+   EVENT LISTENERS
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // chat typing counter
+  const chatInput = document.getElementById("chatInput");
+  if (chatInput) {
+    chatInput.addEventListener("input", updateChatCounter);
+  }
+
+  // announcement typing counter
+  const annInput = document.getElementById("announcementInput");
+  if (annInput) {
+    annInput.addEventListener("input", updateAnnCounter);
+  }
+});
+
+document.getElementById("announcementSearch")
+.addEventListener("input", renderAnnouncements);
+
+  /* =====================
+      PROFILE IMAGE
+  ======================*/
+
+    document
+      .getElementById("imageUpload")
+      .addEventListener("change", function(event){
+
+        const file = event.target.files[0];
+
+        if(file){
+
+          const reader = new FileReader();
+
+          reader.onload = function(e){
+
+            currentMember.picture = e.target.result;
+
+    loadProfilePicture();
+
+    console.log(currentMember.id);
+
+console.log(
+    currentSchool.officers.find(o => o.id === currentMember.id)
+);
+
+    saveSchools();
+
+    renderMembers();
+
+    if(currentMember.role){
+
+    updateOfficerLine(currentMember);
+
+}
+
+    // Refresh the officer row too
+    const line = document.getElementById(
+        currentMember.role.toLowerCase().replace(" ", "-") + "-line"
+    );
+          };
+
+          reader.readAsDataURL(file);
+        }
+      });
+
+    /* =====================
+        POPUP
+    ======================*/
+
+    function openVolunteerPopup(){
+
+      editingLine = null;
+
+      document.getElementById("activityInput").value = "";
+
+      document.getElementById("hoursInput").value = "";
+
+      document.getElementById("volunteerPopup").style.display =
+        "flex";
+    }
+
+    function closeVolunteerPopup(){
+
+      document.getElementById("volunteerPopup").style.display =
+        "none";
+    }
+
+    /* =====================
+        SUBMIT HOURS
+    ======================*/
+
+    function submitHours(){
+
+      function getdateTimestamp() {
+
+    const now = new Date();
+
+    return now.toLocaleDateString();
+
+}
+
+      const activity =
+        document.getElementById("activityInput").value;
+
+      const hours =
+        parseInt(
+          document.getElementById("hoursInput").value
+        );
+
+      if(!activity.trim() || isNaN(hours)){
+
+        alert("Please fill out all fields!");
+
+        return;
+      }
+
+if(editingLine){
+
+    // Send an EDIT request to the president
+    currentSchool.requests.push({
+
+        id: Date.now(),
+
+        type: "editHours",
+
+        memberId: currentMember.id,
+
+        data: {
+
+            memberName: currentMember.name,
+
+            activityId: editingLine.id,
+
+            oldActivity: editingLine.activity,
+
+            oldHours: editingLine.hours,
+
+            newActivity: activity,
+
+            newHours: hours,
+
+            date: getdateTimestamp()
+
+        },
+
+        status: "pending"
+
+    });
+
+} else {
+
+    // Send a NEW HOURS request to the president
+    currentSchool.requests.push({
+
+        id: Date.now(),
+
+        type: "hours",
+
+        memberId: currentMember.id,
+
+        data: {
+
+            memberName: currentMember.name,
+
+            activity: activity,
+
+            hours: hours,
+
+            date: getdateTimestamp()
+
+        },
+
+        status: "pending"
+
+    });
+
+}
+
+      saveSchools();
+
+      // UPDATE TITLE
+      document.getElementById("hoursTitle")
+        .innerText =
+        "Volunteer Hours: " + currentMember.totalHours;
+
+      renderActivities();
+
+      updateTotalHours();
+
+      saveSchools();
+
+      alert("Your request has been sent to the club president for approval.");
+
+      editingLine = null;
+
+      closeVolunteerPopup();
+
+    }
+
+  function renderActivities(){
+
+    const container = document.getElementById("hoursList");
+
+    container.innerHTML = "";
+
+    currentMember.activities.forEach(activity=>{
+
+        const line=document.createElement("div");
+
+        line.className="hour-line";
+
+        line.dataset.hours=activity.hours;
+
+        line.innerHTML=`
+
+            <div class="hour-left">
+
+                <span class="activity">
+                    ${activity.activity}
+                </span>
+
+                <span class="hours">
+                    ${activity.date}
+                </span>
+
+                <span class="hours">
+                    ${activity.hours} Hours
+                </span>
+
+            </div>
+
+            <button class="change-btn">
+                Change
+            </button>
+
+        `;
+
+        line.querySelector(".change-btn").onclick=()=>{
+
+          openVolunteerPopup();
+
+            editingLine=activity;
+
+            document.getElementById("activityInput").value=
+                activity.activity;
+
+            document.getElementById("hoursInput").value=
+                activity.hours;
+
+        };
+
+        container.appendChild(line);
+
+    });
+
+}
+
+  function loadMember(){
+
+    document.getElementById("memberInfo").innerHTML = `
+
+        <h1 class="member-name">${currentMember.name}</h1>
+<br>
+        <p class="member-info">${currentSchool.name}</p>
+<br>
+        <p class="member-info">${currentMember.email}</p>
+<br>
+        <button class="search-btn" onclick="openAnn()">
+            Club Announcements
+        </button>
+
+${
+        currentMember.role === "President"
+        ?
+        `<button
+            class="search-btn"
+            onclick="toggleManageMode()"
+            style="margin-left:5px;"
+        >
+            Manage Club
+        </button>
+      <button
+        class="search-btn"
+        onclick="openRequests()"
+        style="margin-left:5px;">
+        Review Requests
+      </button>
+        `
+        :
+        ""
+    }
+
+    `;
+
+    document.getElementById("hoursTitle").innerText =
+        "Volunteer Hours: " + currentMember.totalHours;
+
+        renderAnnouncements();
+
+}
+
+  function openMember(id){
+
+    currentMember = currentSchool.members.find(m => m.id === id) ||
+    currentSchool.officers.find(o => o.id === id);
+
+    if(!currentMember) return;
+
+    go("member");
+
+    // Load profile information
+    loadMember();
+
+    // Load volunteer hours
+    renderActivities();
+
+    // Load profile picture
+    loadProfilePicture();
+
+    console.log(currentSchool.officers);
+
+    updateAnnouncementPermissions();
+
+}
+
+  function loadProfilePicture(){
+
+    const img=document.getElementById("profileImage");
+
+    const icon=document.querySelector(".default-icon");
+
+    if(currentMember.picture){
+
+        img.src=currentMember.picture;
+
+        img.style.display="block";
+
+        icon.style.display="none";
+
+    }else{
+
+        img.style.display="none";
+
+        icon.style.display="block";
+
+    }
+
+}
+
+  function updateTotalHours(){
+
+    currentMember.totalHours = 0;
+
+    currentMember.activities.forEach(activity => {
+        currentMember.totalHours += activity.hours;
+    });
+
+    document.getElementById("hoursTitle").innerText =
+        "Volunteer Hours: " + currentMember.totalHours;
+}
+
+function saveSchools(){
+
+    localStorage.setItem(
+        "schools",
+        JSON.stringify(schools)
+    );
+
+}
+
+function goClub(){
+
+    if(currentSchool){
+
+        openSchool(currentSchool);
+
+    }else{
+
+        alert("Please select a school first!");
+
+    }
+
+}
+
+function goMember(){
+
+    if(currentMember){
+
+        openMember(currentMember.id);
+
+    }else{
+
+        alert("Please open a member profile first!");
+
+    }
+
+}
+
+function goAnnouncements(){
+
+    if(currentMember){
+
+        openAnn();
+      setTimeout(()=>{
+       document.getElementById("board").scrollIntoView({behavior:"smooth"});
+      },200);
+
+    }else{
+
+        alert("Open a member profile before accessing the club chat.");
+
+    }
+
+}
+
+function goChat(){
+
+    if(currentMember){
+
+        openAnn();
+      setTimeout(()=>{
+       document.getElementById("phone").scrollIntoView({behavior:"smooth"});
+      },200);
+
+    }else{
+
+        alert("Open a member profile before accessing the club chat.");
+
+    }
+
+}
+
+document.addEventListener("click", function(event){
+
+    const sidebar = document.getElementById("sidebar");
+
+    const menuButton = document.querySelector(".menu-btn");
+
+    if(
+        !sidebar.contains(event.target) &&
+        !menuButton.contains(event.target)
+    ){
+
+        closeSidebar();
+
+    }
+
+});
+
+function loadOfficers(){
+
+    // Reset every slot first
+
+    resetOfficerLine("president-line", "President");
+
+    resetOfficerLine("vp-line", "Vice President");
+
+    resetOfficerLine("secretary-line", "Secretary");
+
+    resetOfficerLine("treasurer-line", "Treasurer");
+
+    // Then fill in officers for this school
+
+    currentSchool.officers.forEach(officer=>{
+
+        updateOfficerLine(officer);
+
+    });
+
+}
+
+function resetOfficerLine(id, role){
+
+    const line = document.getElementById(id);
+
+    if(manageMode){
+
+        line.innerHTML = `
+            <div class="officer-left">
+
+                <span class="role">
+
+                    ${role}
+
+                </span>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    line.innerHTML = `
+        <div class="officer-left">
+
+            <span class="role">
+
+                ${role}
+
+            </span>
+
+        </div>
+
+        <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('${role}','${id}')"
+        >
+            Add Info
+        </button>
+    `;
+}
+
+function openManageClub(){
+
+    manageMode = true;
+
+    openSchool(currentSchool);
+
+}
+
+function deleteMember(id){
+
+    currentSchool.members =
+        currentSchool.members.filter(
+            member => member.id !== id
+        );
+    
+    // Close popup FIRST
+    closeDeletePopup();
+
+    saveSchools();
+
+    renderMembers();
+
+}
+
+function deleteOfficer(id){
+
+    const officer = currentSchool.officers.find(
+        o => o.id === id
+    );
+
+    // Close popup FIRST
+    closeDeletePopup();
+
+    if(officer && officer.role === "President"){
+        manageMode = false;
+    }
+
+    currentSchool.officers =
+        currentSchool.officers.filter(
+            o => o.id !== id
+        );
+
+    saveSchools();
+
+    openSchool(currentSchool);
+
+}
+
+function closeManageMode(){
+
+    manageMode = false;
+
+    openSchool(currentSchool);
+
+}
+
+function restoreOfficerLine(role){
+
+    let id;
+
+    switch(role){
+
+        case "President":
+            id="president-line";
+            break;
+
+        case "Vice President":
+            id="vp-line";
+            break;
+
+        case "Secretary":
+            id="secretary-line";
+            break;
+
+        case "Treasurer":
+            id="treasurer-line";
+            break;
+
+    }
+
+    const line =
+        document.getElementById(id);
+
+    line.innerHTML = `
+        <div class="officer-left">
+
+            <span class="role">
+
+                ${role}
+
+            </span>
+
+        </div>
+
+        <button
+            class="add-info-btn"
+            onclick="openOfficerPopup('${role}','${id}')"
+        >
+            Add Info
+        </button>
+    `;
+}
+
+function askDeleteMember(id){
+
+    deleteID = id;
+
+    deleteType = "member";
+
+    document
+        .getElementById("deletePopup")
+        .style.display = "flex";
+
+}
+
+function askDeleteOfficer(id){
+
+    deleteID = id;
+
+    deleteType = "officer";
+
+    document
+        .getElementById("deletePopup")
+        .style.display = "flex";
+
+}
+
+function confirmDelete(){
+
+    if(deleteType === "member"){
+
+        deleteMember(deleteID);
+
+    }
+
+    else{
+
+        deleteOfficer(deleteID);
+
+    }
+
+}
+
+function closeDeletePopup(){
+
+    document.getElementById("deletePopup").style.display = "none";
+
+    deleteID = null;
+
+    deleteType = "";
+
+}
+
+function toggleManageMode(){
+
+    manageMode = !manageMode;
+
+    openSchool(currentSchool);
+
+}
+
+function toggleLock(id){
+
+    const ann = currentSchool.announcements.find(
+        a => a.id === id
+    );
+
+    ann.locked = !ann.locked;
+
+    saveSchools();
+
+    renderAnnouncements();
+
+}
+
+function approveRequest(id){
+
+    const request =
+        currentSchool.requests.find(r=>r.id===id);
+
+    switch(request.type){
+
+        case "member":
+
+            currentSchool.members.push(request.data);
+
+            break;
+
+        case "officer":
+
+            currentSchool.officers.push(request.data);
+
+            break;
+
+        case "hours": {
+
+    const member =
+        currentSchool.members.find(
+            m => m.id === request.memberId
+        )
+        ||
+        currentSchool.officers.find(
+            o => o.id === request.memberId
+        );
+
+    if(!member){
+
+        alert("Could not find the member for this request.");
+
+        return;
+
+    }
+
+    member.activities.push(request.data);
+
+    member.totalHours += request.data.hours;
+
+    break;
+
+}
+
+case "editHours": {
+
+    const member =
+        currentSchool.members.find(
+            m => m.id === request.memberId
+        )
+        ||
+        currentSchool.officers.find(
+            o => o.id === request.memberId
+        );
+
+    if(!member){
+
+        alert("Could not find the member.");
+
+        return;
+
+    }
+
+    const activity =
+        member.activities.find(
+            a => a.id === request.data.activityId
+        );
+
+    if(!activity){
+
+        alert("Could not find the activity being edited.");
+
+        return;
+
+    }
+
+    member.totalHours -= activity.hours;
+
+    activity.activity =
+        request.data.newActivity;
+
+    activity.hours =
+        request.data.newHours;
+
+    activity.date =
+        request.data.date;
+
+    member.totalHours +=
+        request.data.newHours;
+
+    break;
+
+}
+
+    }
+
+    currentSchool.requests =
+        currentSchool.requests.filter(
+            r=>r.id!==id
+        );
+
+    saveSchools();
+
+    renderRequests();
+
+}
+
+function rejectRequest(id){
+
+    currentSchool.requests =
+        currentSchool.requests.filter(
+            r=>r.id!==id
+        );
+
+    saveSchools();
+
+    renderRequests();
+
+}
+
+function renderRequests(){
+
+    const memberContainer =
+        document.getElementById("memberRequests");
+
+    const officerContainer =
+        document.getElementById("officerRequests");
+
+    const hourContainer =
+        document.getElementById("hourRequests");
+
+    memberContainer.innerHTML = "";
+    officerContainer.innerHTML = "";
+    hourContainer.innerHTML = "";
+
+    currentSchool.requests.forEach(request => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "request";
+
+        let title = "";
+        let info = "";
+        let container = null;
+
+
+        // =========================
+        // MEMBER REQUEST
+        // =========================
+
+        if(request.type === "member"){
+
+            title = "👤 Member Request";
+
+            info = `
+                <p><b>Name:</b> ${request.data.name}</p>
+
+                <p><b>Email:</b> ${request.data.email}</p>
+            `;
+
+            container = memberContainer;
+
+        }
+
+
+        // =========================
+        // OFFICER REQUEST
+        // =========================
+
+        else if(request.type === "officer"){
+
+            title = "⭐ Officer Request";
+
+            info = `
+                <p><b>Role:</b> ${request.data.role}</p>
+
+                <p><b>Name:</b> ${request.data.name}</p>
+
+                <p><b>Email:</b> ${request.data.email}</p>
+            `;
+
+            container = officerContainer;
+
+        }
+
+
+        // =========================
+        // VOLUNTEER HOURS REQUEST
+        // =========================
+
+        else if(request.type === "hours"){
+
+            title = "⏱ Volunteer Hours";
+
+            info = `
+                <p><b>Member:</b> ${request.data.memberName}</p>
+
+                <p><b>Activity:</b> ${request.data.activity}</p>
+
+                <p><b>Hours:</b> ${request.data.hours}</p>
+
+                <p><b>Date:</b> ${request.data.date}</p>
+            `;
+
+            container = hourContainer;
+
+        }
+
+        else if(request.type === "editHours"){
+
+    title = "✏️ Edit Volunteer Hours";
+
+    info = `
+        <p><b>Member:</b> ${request.data.memberName}</p>
+
+        <p><b>Old Activity:</b> ${request.data.oldActivity}</p>
+
+        <p><b>Old Hours:</b> ${request.data.oldHours}</p>
+
+        <p><b>New Activity:</b> ${request.data.newActivity}</p>
+
+        <p><b>New Hours:</b> ${request.data.newHours}</p>
+
+        <p><b>Date:</b> ${request.data.date}</p>
+    `;
+
+    container = hourContainer;
+
+}
+
+        // =========================
+        // CREATE REQUEST CARD
+        // =========================
+
+        if(container){
+
+            div.innerHTML = `
+
+                <div class="request-header">
+
+                    <h3>${title}</h3>
+
+                    <span class="pending-tag">
+
+                        Pending
+
+                    </span>
+
+                </div>
+
+
+                ${info}
+
+
+                <div class="request-actions">
+
+                    <button
+                        class="approve-btn"
+                        onclick="approveRequest(${request.id})"
+                    >
+
+                        ✔ Approve
+
+                    </button>
+
+
+                    <button
+                        class="approve-btn"
+                        onclick="rejectRequest(${request.id})"
+                    >
+
+                        ✖ Reject
+
+                    </button>
+
+                </div>
+
+            `;
+
+            container.appendChild(div);
+
+        }
+
+    });
+
+}
+
+function isOfficer(member){
+
+    if(!member || !currentSchool){
+        return false;
+    }
+
+    return currentSchool.officers.some(
+        officer => officer.id === member.id
+    );
+
+}
+
+function updateAnnouncementPermissions(){
+
+    const box =
+        document.getElementById("newAnnouncementBox");
+
+    if(!box){
+        return;
+    }
+
+    if(isOfficer(currentMember)){
+
+        box.style.display = "block";
+
+    }else{
+
+        box.style.display = "none";
+
+    }
+
+}
+
+  </script>
+
+  </body>
+</html> 
