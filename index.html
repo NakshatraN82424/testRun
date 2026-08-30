@@ -2972,31 +2972,74 @@ border-radius:20px;
 
 <body>
 
-  <div id="loginPage">
+<div id="loginPage">
 
     <h1>ClubConnect</h1>
 
-    <h2>Log In</h2>
+    <div id="loginForm">
 
-    <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
-    >
+        <h2>Log In</h2>
 
-    <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-    >
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Email"
+        >
 
-    <button onclick="loginUser()">
-        Log In
-    </button>
+        <input
+            id="loginPassword"
+            type="password"
+            placeholder="Password"
+        >
 
-    <button onclick="showCreateAccount()">
-        Create Account
-    </button>
+        <button onclick="loginUser()">
+            Log In
+        </button>
+
+        <button onclick="showCreateAccount()">
+            Create Account
+        </button>
+
+    </div>
+
+
+    <div id="createAccountForm" style="display:none;">
+
+        <h2>Create Account</h2>
+
+        <input
+            id="signupName"
+            type="text"
+            placeholder="Name"
+        >
+
+        <input
+            id="signupEmail"
+            type="email"
+            placeholder="Email"
+        >
+
+        <input
+            id="signupPassword"
+            type="password"
+            placeholder="Password"
+        >
+
+        <input
+            id="signupSchoolCode"
+            type="text"
+            placeholder="School Code"
+        >
+
+        <button onclick="createAccount()">
+            Create Account
+        </button>
+
+        <button onclick="showLogin()">
+            Back to Login
+        </button>
+
+    </div>
 
 </div>
 
@@ -6339,6 +6382,27 @@ function updateAnnouncementPermissions(){
         box.style.display = "none";
 
     }
+
+}
+
+function showCreateAccount(){
+
+    document.getElementById("loginForm").style.display =
+        "none";
+
+    document.getElementById("createAccountForm").style.display =
+        "block";
+
+}
+
+
+function showLogin(){
+
+    document.getElementById("createAccountForm").style.display =
+        "none";
+
+    document.getElementById("loginForm").style.display =
+        "block";
 
 }
 
