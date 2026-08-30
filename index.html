@@ -4049,6 +4049,23 @@ const supabase = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+
+function showCreateAccount(){
+
+    document.getElementById("loginForm").style.display = "none";
+
+    document.getElementById("createAccountForm").style.display = "block";
+
+}
+
+
+function showLogin(){
+
+    document.getElementById("createAccountForm").style.display = "none";
+
+    document.getElementById("loginForm").style.display = "block";
+
+}
   
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
     schools.forEach(school => {
@@ -6358,23 +6375,6 @@ function updateAnnouncementPermissions(){
         box.style.display = "none";
 
     }
-
-}
-
-function showCreateAccount(){
-
-    document.getElementById("loginForm").style.display = "none";
-
-    document.getElementById("createAccountForm").style.display = "block";
-
-}
-
-
-function showLogin(){
-
-    document.getElementById("createAccountForm").style.display = "none";
-
-    document.getElementById("loginForm").style.display = "block";
 
 }
 
