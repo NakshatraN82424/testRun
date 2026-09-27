@@ -4129,6 +4129,18 @@ async function createAccount(){
         "Account created! Please check your email to verify your account."
     );
 
+    document.getElementById("signupName").innerText = "";
+
+    document.getElementById("signupEmail").innerText = "";
+
+    document.getElementById("signupPassword").innerText = "";
+
+    document.getElementById("signupSchoolCode").innerText = "";
+
+    document.getElementById("loginEmail").innerText = "";
+
+    document.getElementById("loginPassword").innerText = "";
+
 }
 
 async function loginUser(){
@@ -4184,6 +4196,18 @@ document.getElementById("loginPage").style.display = "none";
 
 document.getElementById("app").style.display = "block";
 
+document.getElementById("signupName").innerText = "";
+
+document.getElementById("signupEmail").innerText = "";
+
+document.getElementById("signupPassword").innerText = "";
+
+document.getElementById("signupSchoolCode").innerText = "";
+
+document.getElementById("loginEmail").innerText = "";
+
+document.getElementById("loginPassword").innerText = "";
+
 }
 
 async function logoutUser(){
@@ -4202,6 +4226,18 @@ async function logoutUser(){
 
     document.getElementById("loginPage").style.display = "block";
 
+    document.getElementById("signupName").innerText = "";
+
+    document.getElementById("signupEmail").innerText = "";
+
+    document.getElementById("signupPassword").innerText = "";
+
+    document.getElementById("signupSchoolCode").innerText = "";
+
+    document.getElementById("loginEmail").innerText = "";
+
+    document.getElementById("loginPassword").innerText = "";
+
 }
 
 async function checkAuth(){
@@ -4215,6 +4251,18 @@ async function checkAuth(){
 
         document.getElementById("app").style.display = "block";
 
+        document.getElementById("signupName").innerText = "";
+
+        document.getElementById("signupEmail").innerText = "";
+
+        document.getElementById("signupPassword").innerText = "";
+
+        document.getElementById("signupSchoolCode").innerText = "";
+
+        document.getElementById("loginEmail").innerText = "";
+
+        document.getElementById("loginPassword").innerText = "";
+  
     }else{
 
         document.getElementById("loginPage").style.display = "block";
