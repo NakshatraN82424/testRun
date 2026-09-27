@@ -3464,8 +3464,6 @@ border-radius:20px;
   </div>
   </div>
 
-  </div>
-
   <div id="club" class="page">
   
   <br><br><br><br>
@@ -4039,13 +4037,15 @@ Post
 
 </footer>
 
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-const SUPABASE_URL = "https://pnpofmooygpzjdvifavd.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://pnpofmooygpzjdvifavd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_oHFMWWdt7D2rdkiiv4Xj9w_r7vtQ79-";
 
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
@@ -4066,6 +4066,144 @@ function showLogin(){
     document.getElementById("loginForm").style.display = "block";
 
 }
+
+async function createAccount(){
+
+    const name =
+        document.getElementById("signupName").value.trim();
+
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const schoolCode =
+        document.getElementById("signupSchoolCode").value.trim();
+
+
+    if(!name || !email || !password || !schoolCode){
+
+        alert("Please fill out all fields.");
+
+        return;
+
+    }
+
+
+    const { data, error } =
+        await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+                data: {
+
+                    name: name,
+
+                    schoolCode: schoolCode
+
+                }
+
+            }
+
+        });
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    alert(
+        "Account created! Please check your email to verify your account."
+    );
+
+}
+
+async function loginUser(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+
+    if(!email || !password){
+
+        alert("Please enter your email and password.");
+
+        return;
+
+    }
+
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+if(!data.user.email_confirmed_at){
+
+alert("Please verify your email before logging in.");
+
+await supabaseClient.auth.signOut();
+
+return;
+
+}
+
+alert("Login successful!");
+
+document.getElementById("loginPage").style.display = "none";
+
+document.getElementById("app").style.display = "block";
+
+}
+
+async function checkAuth(){
+
+    const { data: { user } } =
+        await supabaseClient.auth.getUser();
+
+    if(user){
+
+        document.getElementById("loginPage").style.display = "none";
+
+        document.getElementById("app").style.display = "block";
+
+    }else{
+
+        document.getElementById("loginPage").style.display = "block";
+
+        document.getElementById("app").style.display = "none";
+
+    }
+
+}
+
+checkAuth();
   
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
     schools.forEach(school => {
