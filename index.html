@@ -3079,6 +3079,10 @@ border-radius:20px;
         ❓ Feedback
     </a>
 
+    <a href="#" onclick="logoutUser()">
+        Log out
+    </a>
+
 </div>
   <!-- ======================
         NAVBAR
@@ -4179,6 +4183,24 @@ alert("Login successful!");
 document.getElementById("loginPage").style.display = "none";
 
 document.getElementById("app").style.display = "block";
+
+}
+
+async function logoutUser(){
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    document.getElementById("app").style.display = "none";
+
+    document.getElementById("loginPage").style.display = "block";
 
 }
 
