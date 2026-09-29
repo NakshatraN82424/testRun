@@ -3183,6 +3183,9 @@ border-radius:20px;
 <button onclick="checkStoredSchools()">
     Check Stored Schools
 </button>
+<button onclick="reloadSchoolsFromStorage()">
+    Reload Schools
+</button>
       </div>
     </div>
   </section>
@@ -6805,6 +6808,38 @@ function checkStoredSchools(){
         console.error(error);
 
     }
+
+}
+
+</script>
+
+  <script>
+
+function reloadSchoolsFromStorage(){
+
+    schools =
+        JSON.parse(
+            localStorage.getItem("schools") || "[]"
+        );
+
+    console.log("Reloaded schools:", schools);
+
+    if(schools.length === 0){
+
+        alert("Still no schools found.");
+
+        return;
+
+    }
+
+    alert(
+        "Loaded " +
+        schools.length +
+        " school(s): " +
+        schools.map(s => s.name).join(", ")
+    );
+
+    renderSchools();
 
 }
 
