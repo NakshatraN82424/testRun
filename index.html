@@ -4501,88 +4501,92 @@ saveSchools();
 
 function renderSchools(){
 
-  console.log("renderSchools running");
+    console.log("renderSchools running");
 
-  const search =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase();
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
 
-  const container =
-    document.getElementById("cardsContainer");
+    const container =
+        document.getElementById("cardsContainer");
 
-  container.innerHTML = "";
+    container.innerHTML = "";
 
-  const results = schools.filter(school =>
+    const results =
+        schoolDirectory.filter(school =>
 
-    school &&
-    school.name &&
-    school.name.toLowerCase().includes(search)
+            school &&
+            school.name &&
+            school.name.toLowerCase().includes(search)
 
-);
+        );
 
-  schools
-  .filter(school =>
-    school &&
-    school.name &&
-    school.name.toLowerCase().includes(search)
-  )
-    .forEach((school, index) => {
 
-      const card =
-        document.createElement("div");
+    results.forEach(school => {
 
-      card.className = "school-card";
+        const card =
+            document.createElement("div");
 
-      card.innerHTML = `
-        <div class="school-icon">🏫</div>
+        card.className = "school-card";
 
-        <h2>${school.name}</h2>
+        card.innerHTML = `
+            <div class="school-icon">🏫</div>
 
-        <p class="school-address">
-          ${school.address}, ${school.state}
-        </p>
+            <h2>${school.name}</h2>
 
-        <button class="view-btn" onclick="openCodePopup(${school.code})">
-          View
-        </button>
-      `;
+            <p class="school-address">
+                ${school.address}, ${school.state}
+            </p>
 
-      container.appendChild(card);
+            <button
+                class="view-btn"
+                onclick="selectSchoolForJoin('${school.id}')"
+            >
+                Join
+            </button>
+        `;
+
+        container.appendChild(card);
+
     });
+
 
     if(results.length === 0){
 
-    container.innerHTML = `
+        container.innerHTML = `
 
-        <p class="no-results" style="margin-top:110px;text-align:center;">
+            <p
+                class="no-results"
+                style="margin-top:110px;text-align:center;"
+            >
+                No schools found.
+            </p>
 
-            No schools found.<br>
-    Click the + card to add one!
+        `;
 
+    }
 
-        </p>
+}
 
-    `};
+function selectSchoolForJoin(schoolId){
 
-  container.innerHTML += `
-    <div class="add-card" id="addCard">
+    const school =
+        schoolDirectory.find(
+            school => school.id === schoolId
+        );
 
-      <div
-        class="add-icon"
-        onclick="openPopup()"
-      >
-        +
-      </div>
+    if(!school){
 
-      <br>
+        alert("School not found.");
 
-      <p>
-        Add a School
-      </p>
+        return;
 
-    </div>
-  `;
+    }
+
+    console.log("Selected school:", school);
+
 }
 
   /* CODE CHECK */
