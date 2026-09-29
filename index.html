@@ -3164,6 +3164,12 @@ border-radius:20px;
         >
           Search
         </button>
+        <button onclick="migrateSchoolsToSupabase()">
+    Migrate Schools
+</button>
+<button onclick="exportSchools()">
+    Export School Data
+</button>
       </div>
     </div>
   </section>
@@ -6649,6 +6655,45 @@ function updateAnnouncementPermissions(){
     }
 
 }
+
+  <script>
+
+function exportSchools(){
+
+    const data =
+        localStorage.getItem("schools");
+
+    if(!data){
+
+        alert("No school data found.");
+
+        return;
+
+    }
+
+    const blob =
+        new Blob(
+            [data],
+            { type: "application/json" }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download = "schools-backup.json";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+</script>
 
   </script>
 
