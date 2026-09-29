@@ -4418,88 +4418,127 @@ function closeSidebar(){
 
     }
 
-  function addSchool(){
+async function addSchool(){
 
-    const container = document.getElementById("cardsContainer");
-
-    // GET INPUT VALUES
     const schoolName =
-      document.getElementById("schoolName").value
+        document.getElementById("schoolName").value.trim();
 
     const schoolAddress =
-      document.getElementById("schoolAddress").value
+        document.getElementById("schoolAddress").value.trim();
 
     const schoolState =
-      document.getElementById("schoolState").value
-
-    document.getElementById("schoolState").addEventListener("input", function(){
-
-    this.value = this.value.toUpperCase();
-
-});
+        document.getElementById("schoolState").value.trim().toUpperCase();
 
     const schoolPhone =
-      document.getElementById("schoolPhone").value
+        document.getElementById("schoolPhone").value.trim();
 
-    const addCard = document.querySelector(".add-card");
 
     // VALIDATION
-    if(!schoolName.trim() || !schoolAddress.trim() || !schoolState.trim() || !schoolPhone.trim()){
+    if(
+        !schoolName ||
+        !schoolAddress ||
+        !schoolState ||
+        !schoolPhone
+    ){
 
-      alert("Please fill out all fields!");
+        alert("Please fill out all fields!");
 
-      return;
+        return;
+
     }
 
-    const phone =
-    document.getElementById("schoolPhone").value;
 
-const digits =
-    phone.replace(/\D/g,"");
+    const digits =
+        schoolPhone.replace(/\D/g, "");
 
     if(digits.length !== 10){
 
-    alert("Phone number must contain exactly 10 digits.");
+        alert(
+            "Phone number must contain exactly 10 digits."
+        );
 
-    return;
+        return;
 
-}
-
-    if(!/^[A-Za-z]{2}$/.test(schoolState)){
-      alert("Enter a valid 2-letter uppercase state abbreviation.");
-      return;
     }
 
-  const schoolCode =
-  Math.floor(100000 + Math.random() * 900000);
 
-  // STORAGE
-  schools.push({
-    name: schoolName || "",
-    address: schoolAddress || "",
-    state: schoolState || "",
-    phone: schoolPhone || "",
-    code: schoolCode,
-    officers: [],
-    members: [],
-    chatMessages:[],
-    announcements:[],
-    requests: []
-  });
+    if(!/^[A-Z]{2}$/.test(schoolState)){
 
-saveSchools();
+        alert(
+            "Enter a valid 2-letter uppercase state abbreviation."
+        );
 
-  renderSchools();
+        return;
 
-    // RESET FORM
+    }
+
+
+    // Generate the school code
+    const schoolCode =
+        Math.floor(
+            1000000 +
+            Math.random() * 9000000
+        ).toString();
+
+
+    // Create the school in Supabase
+    const { data, error } =
+        await supabaseClient.rpc(
+            "create_school",
+            {
+                p_name: schoolName,
+                p_address: schoolAddress,
+                p_state: schoolState,
+                p_phone: schoolPhone,
+                p_code: schoolCode
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Could not create the school: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    // Keep the old local copy temporarily
+    // so the rest of your existing app still works.
+    schools.push(data);
+
+    saveSchools();
+
+
+    // Refresh the shared school directory
+    await loadSchoolDirectory();
+
+    renderSchools();
+
+
+    // Reset form
     document.querySelector(".school-form").reset();
 
-    // CLOSE POPUP
     closePopup();
 
-    // OPEN CLUB PAGE
-    openSchool(schools[schools.length - 1]);
-  }
+
+    // Open the newly-created club
+    openSchool(data);
+
+
+    alert(
+        "School created successfully!\n\n" +
+        "Your school code is: " +
+        schoolCode
+    );
+
+}
 
 function renderSchools(){
 
