@@ -4210,6 +4210,38 @@ document.getElementById("loginPassword").innerText = "";
 
 }
 
+window.migrateSchoolsToSupabase = async function(){
+
+    if(!Array.isArray(schools) || schools.length === 0){
+
+        alert("There are no local schools to migrate.");
+
+        return;
+
+    }
+
+    const { error } =
+        await supabaseClient.rpc(
+            "import_local_schools",
+            {
+                p_schools: schools
+            }
+        );
+
+    if(error){
+
+        console.error(error);
+
+        alert("Migration failed: " + error.message);
+
+        return;
+
+    }
+
+    alert("Schools successfully migrated to Supabase!");
+
+};
+
 async function logoutUser(){
 
     const { error } = await supabaseClient.auth.signOut();
@@ -4274,6 +4306,40 @@ async function checkAuth(){
 }
 
 checkAuth();
+
+async function migrateSchoolsToSupabase(){
+
+    if(!Array.isArray(schools) || schools.length === 0){
+
+        alert("There are no local schools to migrate.");
+
+        return;
+
+    }
+
+    const { error } =
+        await supabaseClient.rpc(
+            "import_local_schools",
+            {
+                p_schools: schools
+            }
+        );
+
+    if(error){
+
+        console.error(error);
+
+        alert("Migration failed: " + error.message);
+
+        return;
+
+    }
+
+    alert(
+        "Schools successfully migrated to Supabase!"
+    );
+
+}
   
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
     schools.forEach(school => {
@@ -4285,8 +4351,6 @@ checkAuth();
     }
 
 });
-
-saveSchools();
 
     let currentSchool = null;
     let currentMember = null;
