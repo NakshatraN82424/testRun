@@ -3170,6 +3170,16 @@ border-radius:20px;
 <button onclick="exportSchools()">
     Export School Data
 </button>
+    <input
+    type="file"
+    id="schoolsImportFile"
+    accept=".json"
+    onchange="importSchoolsFile(event)"
+>
+
+<button onclick="migrateSchoolsToSupabase()">
+    Migrate Schools to Supabase
+</button>
       </div>
     </div>
   </section>
@@ -6656,7 +6666,9 @@ function updateAnnouncementPermissions(){
 
 }
 
-  <script>
+  </script>
+
+    <script>
 
 function exportSchools(){
 
@@ -6695,7 +6707,66 @@ function exportSchools(){
 
 </script>
 
-  </script>
+  <script>
+
+function importSchoolsFile(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file){
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(e){
+
+        try{
+
+            const importedSchools =
+                JSON.parse(e.target.result);
+
+            if(!Array.isArray(importedSchools)){
+
+                alert("This file does not contain valid school data.");
+
+                return;
+
+            }
+
+            localStorage.setItem(
+                "schools",
+                JSON.stringify(importedSchools)
+            );
+
+            alert(
+                importedSchools.length +
+                " school(s) imported successfully!"
+            );
+
+            location.reload();
+
+        }catch(error){
+
+            console.error(error);
+
+            alert(
+                "Could not read the school backup file."
+            );
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+</script>
 
   </body>
 </html> 
