@@ -4321,6 +4321,7 @@ async function loadSchoolDirectory(){
     let currentSchool = null;
     let currentMember = null;
     let selectedSchoolCode = null;
+    let selectedSchoolId = null;
 
     let editingLine = null;
     let manageMode = false;
@@ -4400,14 +4401,15 @@ function closeSidebar(){
       document.getElementById("popup").style.display = "none";
     }
 
-    function openCodePopup(code){
+    function openCodePopup(schoolId){
 
-       selectedSchoolCode = code;
-       document.getElementById("codepopup").value = "";
+    selectedSchoolId = schoolId;
 
-      document.getElementById("codepopup").style.display = "flex";
+    document.getElementById("codepopup").value = "";
+
+    document.getElementById("codepopup").style.display = "flex";
     }
-
+  
     function closeCodePopup(){
 
       document.getElementById("schoolCode").value = "";
@@ -4501,111 +4503,142 @@ saveSchools();
 
 function renderSchools(){
 
-    console.log("renderSchools running");
+  console.log("renderSchools running");
 
-    const search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+  const search =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
 
-    const container =
-        document.getElementById("cardsContainer");
+  const container =
+    document.getElementById("cardsContainer");
 
-    container.innerHTML = "";
+  container.innerHTML = "";
 
-    const results =
-        schoolDirectory.filter(school =>
+  const results = schools.filter(school =>
 
-            school &&
-            school.name &&
-            school.name.toLowerCase().includes(search)
+    school &&
+    school.name &&
+    school.name.toLowerCase().includes(search)
 
-        );
+);
 
+  schoolDirectory
+.filter(school =>
+    school &&
+    school.name &&
+    school.name.toLowerCase().includes(search)
+  )
+    .forEach((school, index) => {
 
-    results.forEach(school => {
+      const card =
+        document.createElement("div");
 
-        const card =
-            document.createElement("div");
+      card.className = "school-card";
 
-        card.className = "school-card";
+      card.innerHTML = `
+        <div class="school-icon">🏫</div>
 
-        card.innerHTML = `
-            <div class="school-icon">🏫</div>
+        <h2>${school.name}</h2>
 
-            <h2>${school.name}</h2>
+        <p class="school-address">
+          ${school.address}, ${school.state}
+        </p>
 
-            <p class="school-address">
-                ${school.address}, ${school.state}
-            </p>
+      <button
+        class="view-btn"
+        onclick="openCodePopup('${school.id}')">
+        View
+      </button>
+      `;
 
-            <button
-                class="view-btn"
-                onclick="selectSchoolForJoin('${school.id}')"
-            >
-                Join
-            </button>
-        `;
-
-        container.appendChild(card);
-
+      container.appendChild(card);
     });
-
 
     if(results.length === 0){
 
-        container.innerHTML = `
+    container.innerHTML = `
 
-            <p
-                class="no-results"
-                style="margin-top:110px;text-align:center;"
-            >
-                No schools found.
-            </p>
+        <p class="no-results" style="margin-top:110px;text-align:center;">
 
-        `;
+            No schools found.<br>
+    Click the + card to add one!
 
-    }
 
+        </p>
+
+    `};
+
+  container.innerHTML += `
+    <div class="add-card" id="addCard">
+
+      <div
+        class="add-icon"
+        onclick="openPopup()"
+      >
+        +
+      </div>
+
+      <br>
+
+      <p>
+        Add a School
+      </p>
+
+    </div>
+  `;
 }
 
-function selectSchoolForJoin(schoolId){
+  /* CODE CHECK */
+async function checkCode(){
 
-    const school =
-        schoolDirectory.find(
-            school => school.id === schoolId
-        );
+    const code =
+        document.getElementById("schoolCode").value.trim();
 
-    if(!school){
+    if(!code){
 
-        alert("School not found.");
+        alert("Please enter a code!");
 
         return;
 
     }
 
-    console.log("Selected school:", school);
+    const { data, error } =
+        await supabaseClient.rpc(
+            "verify_school_code",
+            {
+                p_school_id: selectedSchoolId,
+                p_code: code
+            }
+        );
 
-}
+    if(error){
 
-  /* CODE CHECK */
-function checkCode(){
+        console.error(error);
 
-  let school = schools.find(s => Number(s.code) === Number(selectedSchoolCode));
-  let code = document.getElementById("schoolCode").value
+        alert(
+            "Could not verify the school code: " +
+            error.message
+        );
 
-  if(code == ""){
-    alert("Please enter a code!");
-  } 
-  else if(code != school.code){
-    document.getElementById("schoolCode").value = "";
+        return;
+
+    }
+
+    if(!data){
+
+        document.getElementById("schoolCode").value = "";
+
+        alert("Wrong code.");
+
+        return;
+
+    }
+
     closeCodePopup();
-    openSchool(school);
-  }
-  else {
-    alert("Wrong code");
-  }
+
+    openSchool(data);
+
 }
 
 /* CLUB PAGE */
