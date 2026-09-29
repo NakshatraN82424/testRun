@@ -3164,28 +3164,7 @@ border-radius:20px;
         >
           Search
         </button>
-        <button onclick="migrateSchoolsToSupabase()">
-    Migrate Schools
-</button>
-<button onclick="exportSchools()">
-    Export School Data
-</button>
-    <input
-    type="file"
-    id="schoolsImportFile"
-    accept=".json"
-    onchange="importSchoolsFile(event)"
->
-
-<button onclick="migrateSchoolsToSupabase()">
-    Migrate Schools to Supabase
-</button>
-<button onclick="checkStoredSchools()">
-    Check Stored Schools
-</button>
-<button onclick="reloadSchoolsFromStorage()">
-    Reload Schools
-</button>
+      
       </div>
     </div>
   </section>
@@ -4232,38 +4211,6 @@ document.getElementById("loginPassword").innerText = "";
 
 }
 
-window.migrateSchoolsToSupabase = async function(){
-
-    if(!Array.isArray(schools) || schools.length === 0){
-
-        alert("There are no local schools to migrate.");
-
-        return;
-
-    }
-
-    const { error } =
-        await supabaseClient.rpc(
-            "import_local_schools",
-            {
-                p_schools: schools
-            }
-        );
-
-    if(error){
-
-        console.error(error);
-
-        alert("Migration failed: " + error.message);
-
-        return;
-
-    }
-
-    alert("Schools successfully migrated to Supabase!");
-
-};
-
 async function logoutUser(){
 
     const { error } = await supabaseClient.auth.signOut();
@@ -4328,40 +4275,6 @@ async function checkAuth(){
 }
 
 checkAuth();
-
-async function migrateSchoolsToSupabase(){
-
-    if(!Array.isArray(schools) || schools.length === 0){
-
-        alert("There are no local schools to migrate.");
-
-        return;
-
-    }
-
-    const { error } =
-        await supabaseClient.rpc(
-            "import_local_schools",
-            {
-                p_schools: schools
-            }
-        );
-
-    if(error){
-
-        console.error(error);
-
-        alert("Migration failed: " + error.message);
-
-        return;
-
-    }
-
-    alert(
-        "Schools successfully migrated to Supabase!"
-    );
-
-}
   
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
     schools.forEach(school => {
@@ -6673,177 +6586,6 @@ function updateAnnouncementPermissions(){
 }
 
   </script>
-
-    <script>
-
-function exportSchools(){
-
-    const data =
-        localStorage.getItem("schools");
-
-    if(!data){
-
-        alert("No school data found.");
-
-        return;
-
-    }
-
-    const blob =
-        new Blob(
-            [data],
-            { type: "application/json" }
-        );
-
-    const url =
-        URL.createObjectURL(blob);
-
-    const link =
-        document.createElement("a");
-
-    link.href = url;
-
-    link.download = "schools-backup.json";
-
-    link.click();
-
-    URL.revokeObjectURL(url);
-
-}
-
-</script>
-
-  <script>
-
-function importSchoolsFile(event){
-
-    const file =
-        event.target.files[0];
-
-    if(!file){
-
-        return;
-
-    }
-
-    const reader =
-        new FileReader();
-
-    reader.onload = function(e){
-
-        try{
-
-            const importedSchools =
-                JSON.parse(e.target.result);
-
-            if(!Array.isArray(importedSchools)){
-
-                alert("This file does not contain valid school data.");
-
-                return;
-
-            }
-
-            localStorage.setItem(
-                "schools",
-                JSON.stringify(importedSchools)
-            );
-
-            alert(
-                importedSchools.length +
-                " school(s) imported successfully!"
-            );
-
-            location.reload();
-
-        }catch(error){
-
-            console.error(error);
-
-            alert(
-                "Could not read the school backup file."
-            );
-
-        }
-
-    };
-
-    reader.readAsText(file);
-
-}
-
-</script>
-
-  <script>
-
-function checkStoredSchools(){
-
-    const data =
-        localStorage.getItem("schools");
-
-    if(!data){
-
-        alert("There is NO schools data in this runner's localStorage.");
-
-        return;
-
-    }
-
-    try{
-
-        const parsed =
-            JSON.parse(data);
-
-        alert(
-            "Schools stored: " +
-            (Array.isArray(parsed) ? parsed.length : "NOT AN ARRAY")
-        );
-
-        console.log("Stored schools:", parsed);
-
-    }catch(error){
-
-        alert("There is data, but it is not valid JSON.");
-
-        console.error(error);
-
-    }
-
-}
-
-</script>
-
-  <script>
-
-function reloadSchoolsFromStorage(){
-
-    schools =
-        JSON.parse(
-            localStorage.getItem("schools") || "[]"
-        );
-
-    console.log("Reloaded schools:", schools);
-
-    if(schools.length === 0){
-
-        alert("Still no schools found.");
-
-        return;
-
-    }
-
-    alert(
-        "Loaded " +
-        schools.length +
-        " school(s): " +
-        schools.map(s => s.name).join(", ")
-    );
-
-    renderSchools();
-
-}
-
-</script>
 
   </body>
 </html> 
