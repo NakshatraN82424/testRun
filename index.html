@@ -4197,6 +4197,10 @@ document.getElementById("loginPage").style.display = "none";
 
 document.getElementById("app").style.display = "block";
 
+await loadSchoolDirectory();
+
+console.log(schoolDirectory);
+
 document.getElementById("signupName").innerText = "";
 
 document.getElementById("signupEmail").innerText = "";
@@ -4252,6 +4256,8 @@ async function checkAuth(){
 
         document.getElementById("app").style.display = "block";
 
+        await loadSchoolDirectory();
+
         document.getElementById("signupName").innerText = "";
 
         document.getElementById("signupEmail").innerText = "";
@@ -4277,6 +4283,31 @@ async function checkAuth(){
 checkAuth();
   
     let schools = JSON.parse(localStorage.getItem("schools") || "[]");
+
+    let schoolDirectory = [];
+
+async function loadSchoolDirectory(){
+
+    const { data, error } =
+        await supabaseClient
+            .from("school_directory")
+            .select("id, name, address, state, phone")
+            .order("name");
+
+    if(error){
+
+        console.error("Could not load schools:", error);
+
+        return;
+
+    }
+
+    schoolDirectory = data || [];
+
+    console.log("Schools loaded from Supabase:", schoolDirectory);
+
+}
+  
     schools.forEach(school => {
 
     if(!school.requests){
