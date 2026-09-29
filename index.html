@@ -3180,6 +3180,9 @@ border-radius:20px;
 <button onclick="migrateSchoolsToSupabase()">
     Migrate Schools to Supabase
 </button>
+<button onclick="checkStoredSchools()">
+    Check Stored Schools
+</button>
       </div>
     </div>
   </section>
@@ -6763,6 +6766,45 @@ function importSchoolsFile(event){
     };
 
     reader.readAsText(file);
+
+}
+
+</script>
+
+  <script>
+
+function checkStoredSchools(){
+
+    const data =
+        localStorage.getItem("schools");
+
+    if(!data){
+
+        alert("There is NO schools data in this runner's localStorage.");
+
+        return;
+
+    }
+
+    try{
+
+        const parsed =
+            JSON.parse(data);
+
+        alert(
+            "Schools stored: " +
+            (Array.isArray(parsed) ? parsed.length : "NOT AN ARRAY")
+        );
+
+        console.log("Stored schools:", parsed);
+
+    }catch(error){
+
+        alert("There is data, but it is not valid JSON.");
+
+        console.error(error);
+
+    }
 
 }
 
