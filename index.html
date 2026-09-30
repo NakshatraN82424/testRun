@@ -4480,7 +4480,14 @@ async function addSchool(){
             Math.random() * 9000000
         ).toString();
 
-
+console.log("Sending school to Supabase:", {
+    schoolName,
+    schoolAddress,
+    schoolState,
+    schoolPhone,
+    schoolCode
+});
+  
     // Create the school in Supabase
     const { data, error } =
         await supabaseClient.rpc(
