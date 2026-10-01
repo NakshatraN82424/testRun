@@ -6052,10 +6052,62 @@ ${
 
 function saveSchools(){
 
+    // Keep the old local copy temporarily
     localStorage.setItem(
         "schools",
         JSON.stringify(schools)
     );
+
+
+    // Nothing to sync if no Supabase school is open
+    if(!currentSchool || !currentSchool.id){
+
+        return;
+
+    }
+
+
+    const clubData = {
+
+        officers:
+            currentSchool.officers || [],
+
+        members:
+            currentSchool.members || [],
+
+        chatMessages:
+            currentSchool.chatMessages || [],
+
+        announcements:
+            currentSchool.announcements || [],
+
+        requests:
+            currentSchool.requests || []
+
+    };
+
+
+    supabaseClient
+        .rpc(
+            "save_school_club_data",
+            {
+                p_school_id: currentSchool.id,
+
+                p_club_data: clubData
+            }
+        )
+        .then(({ error }) => {
+
+            if(error){
+
+                console.error(
+                    "Could not sync club data:",
+                    error
+                );
+
+            }
+
+        });
 
 }
 
