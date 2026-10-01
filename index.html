@@ -4687,48 +4687,78 @@ async function checkCode(){
 
 }
 
-/* CLUB PAGE */
 function openSchool(school){
 
-  currentSchool = school;
+    currentSchool = school;
 
-  loadOfficers();
+    loadOfficers();
 
-  renderMembers();
+    renderMembers();
 
-  renderChat();
+    renderChat();
 
-  renderAnnouncements();
+    renderAnnouncements();
 
-  go("club");
+    go("club");
 
-  const addMember =
-    document.getElementById("addMemberBtn");
 
-addMember.style.display =
-    manageMode ? "none" : "inline-block";
+    const addMember =
+        document.getElementById("addMemberBtn");
 
-  document.getElementById("schoolInfo").innerHTML=`
-    <h1 style="margin-bottom:12px;">${currentSchool.name}</h1>
+    if(addMember){
 
-    <p style="margin-bottom:10px;"><b>Location:</b> ${currentSchool.address}, ${currentSchool.state}</p>
+        addMember.style.display =
+            manageMode ? "none" : "inline-block";
 
-    <p style="margin-bottom:10px;"><b>Phone:</b> ${currentSchool.phone}</p>
+    }
 
-    <p style="margin-bottom:10px;"><b>Code:</b> ${currentSchool.code}</p>
-  `;
 
-  const btn = document.getElementById("manageBtn");
+    const schoolInfo =
+        document.getElementById("schoolInfo");
 
-if(manageMode){
+    if(schoolInfo){
 
-    btn.innerText = "Done Managing";
+        schoolInfo.innerHTML = `
+            <h1 style="margin-bottom:12px;">
+                ${currentSchool.name}
+            </h1>
 
-}else{
+            <p style="margin-bottom:10px;">
+                <b>Location:</b>
+                ${currentSchool.address},
+                ${currentSchool.state}
+            </p>
 
-    btn.innerText = "Manage Club";
+            <p style="margin-bottom:10px;">
+                <b>Phone:</b>
+                ${currentSchool.phone}
+            </p>
 
-}
+            <p style="margin-bottom:10px;">
+                <b>Code:</b>
+                ${currentSchool.code}
+            </p>
+        `;
+
+    }
+
+
+    const btn =
+        document.getElementById("manageBtn");
+
+    if(btn){
+
+        if(manageMode){
+
+            btn.innerText = "Done Managing";
+
+        }else{
+
+            btn.innerText = "Manage Club";
+
+        }
+
+    }
 
 }
 
