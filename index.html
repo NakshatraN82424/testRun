@@ -4282,7 +4282,7 @@ async function checkAuth(){
 
 checkAuth();
   
-    let schools = JSON.parse(localStorage.getItem("schools") || "[]");
+    let school = JSON.parse(localStorage.getItem("schools") || "[]");
 
     let schoolDirectory = [];
 
@@ -4308,7 +4308,7 @@ async function loadSchoolDirectory(){
 
 }
   
-    schools.forEach(school => {
+    schoolDirectory.forEach(school => {
 
     if(!school.requests){
 
@@ -4561,7 +4561,7 @@ function renderSchools(){
 
   container.innerHTML = "";
 
-  const results = schools.filter(school =>
+  const results = schoolDirectory.filter(school =>
 
     school &&
     school.name &&
